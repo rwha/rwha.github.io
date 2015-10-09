@@ -13,23 +13,65 @@ body{
 }
 
 #control {
-	position: relative;
-	width: 100%;
-	height: 30px;
+	position: absolute;
+	float: left;
+	width: 250px;
+	height: 100%;
 	color: #E6E6E6;
 	background-color: #2E2E2E;
+	border-right: thin solid #818181;
 	padding-top: 5px;
+	transform: translateX(-249px);
+	-webkit-backface-visibility: hidden;
+}
+
+#ctrlr {
+	position:absolute;
+	top:0;
+	bottom:0;
+	width: 30px;
+	height: 54px;
+	/*background-color: #2E2E2E;*/
+	
+}
+
+
+.icon {
+    position: relative;
+}
+.icon > i {
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: 25px solid transparent;
+    border-left: 25px solid #818181;
+    left: 2px;
+    top: 2px;
+}
+
+
+
+#control:hover {
+	animation-name: show;
+	animation-duration: 0.1s;
+	animation-fill-mode: forwards;
+}
+
+#control:hover #ctrlr {
+	display:none;
+}
+
+@keyframes show {
+	100% { transform: translateX(0); }
 }
 
 .controls {
 	font-size: 12px;
 	line-height: 25px;
-	margin-left: 15px;
-}
-
-#control > button {
-	height: 20px;
-	line-height: 12px;
+	margin-left: 10px;
+	display: inline-flex;
 }
 
 #control > select {

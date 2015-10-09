@@ -11,13 +11,14 @@
 	<title>sketch pad</title>
 </head>
 <body>
-
+	<div id="ctrlr"><i class="icon"><i></i></i></div>
 	<div id="control">
 		<label for="back-color" class="controls">background: </label>
 			<input type="text" id="back-color">
 		<label for="pen-color" class="controls">pen: </label>
 			<input type="text" id="pen-color">
-		<input type="hidden" id="name">
+		<br><input type="hidden" id="name">
+		
 		<label for="pen-size" class="controls">pen size: </label>
 		<select id="pen-size">
 			<option selected>1</option>
@@ -41,6 +42,7 @@
 			<option>19</option>
 			<option>20</option>
 		</select>
+
 		<span class="controls">opacity: </span>
 		<select id="opacity">
 			<option value="1" selected>100%</option>
@@ -54,6 +56,7 @@
 			<option value="0.2">20%</option>
 			<option value="0.1">10%</option>
 		</select>
+
 		<span class='controls' id='undo' title=' undo: ctrl+Z'> &nbsp; </span>
 		<span class='controls' id='redo' title='redo: ctrl+shift+Z'> &nbsp; </span>
 		<span class='controls' id='clear' title='new (clears board): shift+N'> &nbsp; </span>

@@ -1,4 +1,4 @@
-// Spectrum Colorpicker v1.7.0
+// Spectrum Colorpicker v1.7.1
 // https://github.com/bgrins/spectrum
 // Author: Brian Grinstead
 // License: MIT
@@ -556,9 +556,6 @@
                 var initial = colorOnShow;
                 var current = get();
                 initialColorContainer.html(paletteTemplate([initial, current], current, "sp-palette-row-initial", opts));
-				//var tr = "<span id='transparent' class='sp-thumb-el sp-palette'></span>"; 
-				//var gr = "<span id='graphbg' class='sp-thumb-el sp-palette' onclick='makeGrid(); return false'></span>";
-				//initialColorContainer.html(tr + gr);
             }
         }
 
@@ -1187,8 +1184,8 @@
     $.fn.spectrum.defaults = defaultOpts;
     $.fn.spectrum.inputTypeColorSupport = function inputTypeColorSupport() {
         if (typeof inputTypeColorSupport._cachedResult === "undefined") {
-            var colorInput = $("<input type='color' value='!' />")[0];
-            inputTypeColorSupport._cachedResult = colorInput.type === "color" && colorInput.value !== "!";
+            var colorInput = $("<input type='color'/>")[0]; // if color element is supported, value will default to not null
+            inputTypeColorSupport._cachedResult = colorInput.type === "color" && colorInput.value !== "";
         }
         return inputTypeColorSupport._cachedResult;
     };

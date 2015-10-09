@@ -2,6 +2,7 @@ paper.install(window);
 var taken = [];
 
 $("#back-color").spectrum({
+	appendTo: $("#control"),
 	preferredFormat: "hex",
 	showInput: false,
 	color: "#FFFFFF",
@@ -18,6 +19,7 @@ $("#back-color").spectrum({
 });
 
 $("#pen-color").spectrum({
+	appendTo: $("#control"),
 	preferredFormat: "hex",
 	showInput: false,
 	color: "#2E2E2E",
@@ -161,8 +163,22 @@ $(window).load(function(){
 	
 	var tool = new Tool();
 	var path;
+	var hitopts = {
+		segments: true,
+		stroke: true,
+		fill: true,
+		tolerance: 5	
+	};
 	
 	tool.onMouseDown = function(e) {
+		
+		if(Key.isDown('shift')) {
+			var hr = paper.project.hitTest(e.point, hitopts);
+			if(hr.type && hr.type == 'stroke'){
+				hr.item.remove();
+			}
+		} else {
+		
 		var color = $("#pen-color").spectrum("get").toHexString();
 		var stroke = document.getElementById('pen-size').value;
 		var opacity = document.getElementById('opacity').value;
@@ -174,14 +190,25 @@ $(window).load(function(){
 			strokeCap: 'round',
 			strokeJoin: 'bevel'
 		});
+		
+		}
 	}
 	
 	tool.onMouseDrag = function(e){
-		path.add(e.point);
+		if(Key.isDown('shift')) {
+			var hr = paper.project.hitTest(e.point, hitopts);
+			if(hr.type && hr.type == 'stroke'){
+				hr.item.remove();
+			}
+		} else {		
+			path.add(e.point);
+		}
 	}
 	
 	tool.onMouseUp = function(e) {
-		path.simplify(10);
+		if(!Key.isDown('shift')) {
+			path.simplify(10);
+		}
 	}
 	
 	view.draw();	
@@ -251,4 +278,21 @@ $(window).load(function(){
 		view.update();
 	});
 	
+});
+
+$(document).ready(function() {
+/*
+	$("#controller").click(function(){
+		$("#control").toggleClass("show");
+		$("#controller").toggleClass("expand");
+	});
+
+	$("#control")
+		.mouseenter(function() { 
+			$("#control").addClass("show"); 
+		})
+		.mouseleave(function() { 
+			$("#control").removeClass("show"); 
+		});
+*/
 });
