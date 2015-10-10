@@ -219,7 +219,7 @@ $(window).load(function(){
 	
 	tool.onMouseUp = function(e) {
 		if(!Key.isDown('shift')) {
-			path.simplify(10);
+			path.simplify(8);
 		}
 	}
 	

@@ -111,6 +111,10 @@ canvas[resize] {
 	border: thin solid #424242;
 }
 
+#filelist {
+	margin-left: 10px;
+}
+
 img {
 	padding: 2px;
 	margin: 10px;

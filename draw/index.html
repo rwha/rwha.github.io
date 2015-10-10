@@ -39,7 +39,7 @@
       }
 
       function loadDriveApi() {
-        gapi.client.load('drive', 'v2', printAppfolderMetadata);
+        gapi.client.load('drive', 'v2', listFiles);
       }
 
 	  function printAppfolderMetadata() {
@@ -89,6 +89,19 @@
 	  }
 	  
 	  function listFiles(callback) {
+		if(!callback) {
+			callback = function(files) {
+				for(var f=0,n=files.length;f<n;f++) {
+					var p = $('<p>')
+					  .text(files[f].title)
+					  .attr('id', files[f].id)
+					  .click(function(){
+							console.log(this);
+					  });
+					$("#filelist").append(p);
+				}
+			}
+		}
 		var retrievePageOfFiles = function(request, result) {
 			request.execute(function(resp) {
 				result = result.concat(resp.items);
@@ -175,6 +188,8 @@
 		<br><br>
 		<input type="text" id="book-name" placeholder="book name">
 		<button id="newbook">create</button>
+		<br><br>
+		<div id="filelist"></div>
 		
 	</div>
 
