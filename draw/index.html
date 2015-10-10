@@ -8,15 +8,90 @@
 	<script type="text/javascript" src="js/spectrum.js"></script>
 	<script type="text/javascript" src="js/paper-core.min.js"></script>
 	<script type="text/javascript" src="js/db.js"></script>
+    <script type="text/javascript">
+      var CLIENT_ID = '250137569211-thdglqpmqkfiqr5t3l7q3a77947qv7vr.apps.googleusercontent.com';
+      var SCOPES = ['https://www.googleapis.com/auth/drive.appfolder'];
+
+      function checkAuth() {
+        gapi.auth.authorize(
+          {
+            'client_id': CLIENT_ID,
+            'scope': SCOPES.join(' '),
+            'immediate': true
+          }, handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+          authorizeDiv.style.display = 'none';
+          loadDriveApi();
+        } else {
+          authorizeDiv.style.display = 'inline';
+        }
+      }
+
+      function handleAuthClick(event) {
+        gapi.auth.authorize(
+          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+          handleAuthResult);
+        return false;
+      }
+
+      function loadDriveApi() {
+        gapi.client.load('drive', 'v2', printAppfolderMetadata);
+      }
+
+	  function printAppfolderMetadata() {
+		var request = gapi.client.drive.files.get({
+			'fileId': 'appfolder'
+		});
+		
+		request.execute(function(resp) {
+			console.log('Id: ' + resp.id);
+			console.log('Title: ' + resp.title);
+		});
+	  }
+
+	  function listFiles(callback) {
+		var retrievePageOfFiles = function(request, result) {
+			request.execute(function(resp) {
+				result = result.concat(resp.items);
+				var nextPageToken = resp.nextPageToken;
+				if (nextPageToken) {
+					request = gapi.client.drive.files.list({
+						'pageToken': nextPageToken
+					});
+					retrievePageOfFiles(request, result);
+				} else {
+					callback(result);
+				}
+			});
+		}
+		var initialRequest = gapi.client.drive.files.list({
+			'q': '\'appfolder\' in parents'
+		});
+		retrievePageOfFiles(initialRequest, []);
+	  }
+
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 	<title>sketch pad</title>
 </head>
 <body>
 	<div id="ctrlr"><i class="icon"><i></i></i></div>
 	<div id="control">
+		<div id="authorize-div" style="display: none">
+			<span>Authorize Google Drive</span>
+			<button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button>
+		</div>
+
 		<label for="back-color" class="controls">background: </label>
 			<input type="text" id="back-color">
+
 		<label for="pen-color" class="controls">pen: </label>
 			<input type="text" id="pen-color">
+
 		<br><input type="hidden" id="name">
 		
 		<label for="pen-size" class="controls">pen size: </label>
@@ -62,12 +137,11 @@
 		<span class='controls' id='clear' title='new (clears board): shift+N'> &nbsp; </span>
 		<span class='controls' id='pic' title='picture: shift+P'> &nbsp; </span>
 		<span class='controls' id='graph' title='graph: shift+G'> &nbsp; </span>
+
 	</div>
-	
+
 	<canvas id="canvas" resize="true" data-paper-resize="true"></canvas>
-
 	<div id="message"></div>
-
 	<script type="text/javascript" src="js/app.js"></script>
 
 </body>
