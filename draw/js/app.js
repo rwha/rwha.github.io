@@ -145,7 +145,7 @@ $(document).keyup(function(e){
 $(window).load(function(){
 	
 	$("#newbook").click(function(){
-		var bookname = $("#book-name").value();
+		var bookname = $("#book-name").val();
 		if(bookname == ''){
 			message('please enter a book name');
 			$("#book-name").focus();
