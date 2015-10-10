@@ -144,6 +144,18 @@ $(document).keyup(function(e){
 
 $(window).load(function(){
 	
+	$("#newbook").click(function(){
+		var bookname = $("#book-name").value();
+		if(bookname == ''){
+			message('please enter a book name');
+			$("#book-name").focus();
+			return;
+		} else {
+			var data = paper.project.activeLayer.exportJSON();
+			gd_insertFile(bookname, data);
+		}
+	});
+	
 	//storage.open(storable);	
 	
 	var bgcolor = $("#back-color").spectrum("get").toHexString();

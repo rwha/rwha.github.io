@@ -52,11 +52,42 @@
 			p.text(resp.title);
 			p.attr('id', resp.id);
 			$("#control").append(p);
-			console.log('Id: ' + resp.id);
-			console.log('Title: ' + resp.title);
+
 		});
 	  }
+	  
+	  function gd_insertFile(filename, text, callback) {
 
+		const boundary = '-------314159265358979323846';
+		const delimiter = "\r\n--" + boundary + "\r\n";
+		const close_delim = "\r\n--" + boundary + "--";
+
+		var contentType = "application/json";
+		var metadata = {
+			'mimeType': contentType,
+			'title': filename + '.json',
+			'parents': [{'id': 'appfolder'}]
+		};
+
+		var multipartRequestBody =
+			delimiter +  'Content-Type: application/json\r\n\r\n' +
+			JSON.stringify(metadata) +
+			delimiter + 'Content-Type: ' + contentType + '\r\n' + '\r\n' +
+			text +
+			close_delim;
+
+		if (!callback) { callback = function(file) { console.log("Update Complete ",file) }; }
+
+		var request = gapi.client.request({
+			'path': '/upload/drive/v2/files/',
+			'method': 'POST',
+			'params': {'uploadType': 'multipart'},
+			'headers': {'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'},
+			'body': multipartRequestBody
+		});
+		request.execute(callback);
+	  }
+	  
 	  function listFiles(callback) {
 		var retrievePageOfFiles = function(request, result) {
 			request.execute(function(resp) {
