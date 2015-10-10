@@ -144,7 +144,7 @@ $(document).keyup(function(e){
 
 $(window).load(function(){
 	
-	storage.open(storable);	
+	//storage.open(storable);	
 	
 	var bgcolor = $("#back-color").spectrum("get").toHexString();
 

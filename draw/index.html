@@ -48,6 +48,10 @@
 		});
 		
 		request.execute(function(resp) {
+			var p = $('<p>');
+			p.text(resp.title);
+			p.attr('id', resp.id);
+			$("#control").append(p);
 			console.log('Id: ' + resp.id);
 			console.log('Title: ' + resp.title);
 		});
@@ -93,7 +97,7 @@
 			<input type="text" id="pen-color">
 
 		<br><input type="hidden" id="name">
-		
+		<br><br>
 		<label for="pen-size" class="controls">pen size: </label>
 		<select id="pen-size">
 			<option selected>1</option>
@@ -131,13 +135,16 @@
 			<option value="0.2">20%</option>
 			<option value="0.1">10%</option>
 		</select>
-
-		<span class='controls' id='undo' title=' undo: ctrl+Z'> &nbsp; </span>
+		<br><br>
+		<span style='margin-left:15px' class='controls' id='undo' title=' undo: ctrl+Z'> &nbsp; </span>
 		<span class='controls' id='redo' title='redo: ctrl+shift+Z'> &nbsp; </span>
 		<span class='controls' id='clear' title='new (clears board): shift+N'> &nbsp; </span>
 		<span class='controls' id='pic' title='picture: shift+P'> &nbsp; </span>
 		<span class='controls' id='graph' title='graph: shift+G'> &nbsp; </span>
-
+		<br><br>
+		<input type="text" id="book-name" placeholder="book name">
+		<button id="newbook">create</button>
+		
 	</div>
 
 	<canvas id="canvas" resize="true" data-paper-resize="true"></canvas>

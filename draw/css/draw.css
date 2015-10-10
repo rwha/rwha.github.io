@@ -70,7 +70,7 @@ body{
 .controls {
 	font-size: 12px;
 	line-height: 25px;
-	margin-left: 10px;
+	/*margin-left: 10px;*/
 	display: inline-flex;
 }
 
