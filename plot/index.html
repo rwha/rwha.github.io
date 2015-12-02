@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<title>function plotter</title>
+
+<style>
+html,body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+	font-family: sans-serif;
+}
+#myPlot {
+	width: 100%;
+	height: 100%;
+}
+
+#functions {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	z-index: 101;
+	padding: 10px;
+	font-size: 18px;
+}
+
+.fin {
+	border: thin solid rgba(255,155,0,0.5);
+	border-radius: 5px;
+}
+
+.fbtn {
+	background-color: rgba(255,155,0,1);
+	border: none;
+	border-radius: 5px;
+	color: white;
+	width: 20px;
+	height: 20px;
+}
+
+</style>
+
+<script type="text/javascript" src="fooplot.js"></script>
+<script type="text/javascript">
+
+function main() {
+	var f = document.getElementById('functions');
+	var addBtn = document.getElementById('add');
+	myPlot = new Fooplot(document.getElementById('myPlot'));
+	myPlot.reDraw();
+	document.getElementById('function').focus();
+	
+	addBtn.onclick = function() {
+		var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+		var tf = document.getElementById('function');
+		var tfv = tf.value;
+		
+		myPlot.addPlot(tfv,FOOPLOT_TYPE_FUNCTION,{'color':color});
+		myPlot.reDraw();
+		
+		var p = document.createElement('p');
+		p.style.color = color;
+		p.textContent = tfv;
+		p.id = myPlot.plots.length-1;
+		p.onclick = function() {
+			myPlot.plots.splice(this.id,1);
+			myPlot.reDraw();
+			p.parentNode.removeChild(p);
+			document.getElementById('function').focus();
+		}
+		document.getElementById('functions').appendChild(p);
+		tf.value = '';
+		tf.focus();
+	};
+	
+}
+
+function fillWithCubics() {
+	var cubics = ['x^3-x','x^3-2x','x^3-3x','x^3-4x','x^3-5x','x^3-6x','x^3-7x','x^3-8x','x^3-9x',
+		'x^3+x','x^3+2x','x^3+3x','x^3+4x','x^3+5x','x^3+6x','x^3+7x','x^3+8x','x^3+9x',
+		'-x^3-x','-x^3-2x','-x^3-3x','-x^3-4x','-x^3-5x','-x^3-6x','-x^3-7x','-x^3-8x','-x^3-9x',
+		'-x^3+x','-x^3+2x','-x^3+3x','-x^3+4x','-x^3+5x','-x^3+6x','-x^3+7x','-x^3+8x','-x^3+9x' ];
+	var f = document.getElementById('function');
+	var a = document.getElementById('add');
+
+	for(i=0,l=cubics.length;i<l;i++) {
+		f.value = cubics[i];
+		a.click();
+	}
+}
+
+
+</script>
+</head>
+
+<body onload="main();">
+<div id="functions">
+	<input type="text" id="function" class="fin" placeholder=" enter function of x"> <button class="fbtn" id="add"> &#43 </button>
+</div>
+	
+<div id="myPlot"></div>
+
+</body>
+</html>
