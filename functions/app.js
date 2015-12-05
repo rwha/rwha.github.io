@@ -2,8 +2,8 @@ var funcs = ["http://www-history.mcs.st-andrews.ac.uk/Curves/Astroid.html", "htt
 console.log(funcs[0]);
 //funcs.forEach(function(k,v,i) {
 	//console.log('k');
-	$.ajax({
-		type:	"GET",
+	$.get({
+		//type:	"GET",
 		url:	funcs[0],
 		//dataType: "jsonp",
 		success: function(data){
