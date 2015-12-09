@@ -134,7 +134,7 @@ var myGraph = new Graph({
 	unitsPerTick: 1
 });
 
-/*
+
 //Folium of Descartes
 myGraph.polar(function(a,theta){
 	var s = Math.sin(theta);
@@ -143,7 +143,7 @@ myGraph.polar(function(a,theta){
 	return {x: (r * c), y: (r * s)};
 }, 3);
 
-
+/*
 //Astroid
 myGraph.parametric(function(s,a,b){
 	var ci = Math.cos(s);
