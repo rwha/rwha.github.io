@@ -56,17 +56,16 @@ Graph.prototype.drawAxes = function() {
 	ctx.restore();
 }
 
-Graph.prototype.polar = function(radius,a) {
+Graph.prototype.polar = function(radius) {
 	var ctx = this.context;
-	var a = a || 1;
 	var s,c,r,x,y,xi,yi,tos,los,started=false;
 	var thetamin = 0;
-	var thetamax = 2 * this.pi;
+	var thetamax = 6 * this.pi;
 	var thetastep = 0.01;
 	ctx.save();
 	ctx.beginPath();
 	for (var theta = thetamin; theta <= thetamax; theta += thetastep) {
-		r = radius(a,theta);
+		r = radius(theta);
 		x = r.x;
 		y = r.y;
 		xi = (x-this.minX)/this.rangeX*this.width;
@@ -90,15 +89,13 @@ Graph.prototype.polar = function(radius,a) {
 	ctx.restore();
 }
 
-Graph.prototype.parametric = function(point,a,b) {
-	var a = a || 1;
-	var b = b || 1;
+Graph.prototype.parametric = function(point) {
 	var ctx = this.context;
 	var tos,los,started = false;
 	ctx.save();
 	ctx.beginPath();
 	for (var s = this.minX; s <= this.maxX; s += this.iteration) {
-		var points = point(s,a,b);
+		var points = point(s);
 		var x = points.x;
 		var y = points.y;
 		xi = (x-this.minX)/this.rangeX*this.width;
@@ -123,10 +120,8 @@ Graph.prototype.parametric = function(point,a,b) {
 }
 
 
-/** examples **/ 
-
 var myGraph = new Graph({
-	canvasId: 'myCanvas',
+	canvasId: 'canvas',
 	minX: -10,
 	minY: -10,
 	maxX: 10,
@@ -134,32 +129,133 @@ var myGraph = new Graph({
 	unitsPerTick: 1
 });
 
-
-//Folium of Descartes
-myGraph.polar(function(a,theta){
-	var s = Math.sin(theta);
-	var c = Math.cos(theta);
-	var r = 3 * a * s * c/((s * s * s) + (c * c * c));
-	return {x: (r * c), y: (r * s)};
-}, 3);
-
 /*
 //Astroid
-myGraph.parametric(function(s,a,b){
+myGraph.parametric(function(s){
+	var a = 5;
 	var ci = Math.cos(s);
 	var si = Math.sin(s);
 	var xi = a * ci * ci * ci;
 	var yi = a * si * si * si;
 	return {x: xi, y: yi};
-}, 5);
+});
+
+//Bicorn
+myGraph.parametric(function(s){
+	var a = 5;
+	var sin = Math.sin(s);
+	var xi = a * Math.cos(s);
+	var yi = a * (sin*sin)/(2 + sin);
+	return {x: xi, y: yi};
+});
+
+// Cardiod
+myGraph.polar(function(theta){
+	var a = 2;
+	var s = Math.sin(theta);
+	var c = Math.cos(theta);
+	var r = 2 * a * (1 + c); 
+	return {x: (r * c), y: (r * s)};
+});
+
+//Cartesian Oval(s)
+myGraph.polar(function(theta){
+	var a = -1.5;
+	var m = 2;
+	var c = -0.1;
+	var cos = Math.cos(theta);
+	var sin = Math.sin(theta);
+	//var num = ((1 - m * m) * (cos * cos + sin * sin) + 2 * m * m * c * cos + a * a - m * m * c * c);
+	//var den = 4 * a * a * (cos * cos + sin * sin)
+	//var r = num * num / den;
+	var r = (2 * a / (1 - a * a)) * (1 - a * cos);
+	return {x: (r * cos), y: (r * sin)};
+});
+
+//Cayley's Sextic
+// needs 0 < theta < 4pi
+myGraph.polar(function(theta){
+	var a = 2;
+	var c = Math.cos(theta/3);
+	var r = 4 * a * c * c * c
+	return {x: (r * Math.cos(theta)), y: (r * Math.sin(theta))};
+});
+
+//Cissoid of Diocles
+myGraph.polar(function(theta){
+	var a = 2;
+	var r = 2 * a * Math.tan(theta) * Math.sin(theta);
+	return {x: (r * Math.cos(theta)), y: (r * Math.sin(theta))};
+});
+
+//Cochleoid
+// give it 6pi or more to make it interesting...
+myGraph.polar(function(theta){
+	var a = 9;
+	var r = a * Math.sin(theta)/theta;
+	return {x: (r * Math.cos(theta)), y: (r * Math.sin(theta))};
+});
+
+//Conchoid
+myGraph.polar(function(theta){
+	var a = 5;
+	var b = 2;
+	var r = a + b/Math.cos(theta);
+	return {x: (r * Math.cos(theta)), y: (r * Math.sin(theta))};
+});
+
+//Conchoid of de Sluze
+myGraph.polar(function(theta){
+	var a = 1;
+	var k = 2.5;
+	var c = Math.cos(theta);
+	var r = (k * k * c * c - a * a)/c;
+	return {x: (r * Math.cos(theta)), y: (r * Math.sin(theta))};
+});
+
+//Cycloid
+//  use h = a, h < a, and h > a 
+myGraph.parametric(function(s){
+	var a = 1;
+	var h = 1;
+	var xi = a * s - h * Math.sin(s);
+	var yi = a - h * Math.cos(s);
+	return {x: xi, y: yi};
+});
+
+//Devil's Curve
+// needs work...
+myGraph.polar(function(theta){
+	//var a = 1.5;
+	//var b = 2;
+	var s = Math.sin(theta);
+	var c = Math.cos(theta);
+	var tan = s/c;
+	//var r = (a * s * s - b * c * c) / (s * s - c * c);
+	var r = Math.sqrt((25 - 24 * tan * tan) / (1 - tan * tan));
+	return {x: (r * c), y: (r * s)};
+});
 */
 
+
+
+/*
+//Folium of Descartes
+myGraph.polar(function(theta){
+	var a = 3;
+	var s = Math.sin(theta);
+	var c = Math.cos(theta);
+	var r = 3 * a * s * c/((s * s * s) + (c * c * c));
+	return {x: (r * c), y: (r * s)};
+});
+
 //Hypocycloid
-myGraph.parametric(function(s,a,b){
+myGraph.parametric(function(s){
+	var a = 5;
+	var b = 3;
 	var xi = (a-b) * Math.cos(s) + b * Math.cos((a/b-1)*s);
 	var yi = (a-b) * Math.sin(s) - b * Math.sin((a/b-1)*s)
 	return {x: xi, y: yi};
-},5,3);
+});
 
-
-
+*/
