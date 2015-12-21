@@ -8,9 +8,9 @@ function motionEvent(e) {
 	var y = e.accelerationIncludingGravity.y;
 	var z = e.accelerationIncludingGravity.z;
 		
-	xDiv.textContent = x;
-	yDiv.textContent = y;
-	zDiv.textContent = z;
+	xDiv.textContent = Math.floor(x);
+	yDiv.textContent = Math.floor(y);
+	zDiv.textContent = Math.floor(z);
 }
 
 window.addEventListener("devicemotion", motionEvent, true);
