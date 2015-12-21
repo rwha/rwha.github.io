@@ -1,0 +1,61 @@
+html,body {
+	margin: 0;
+	font-family: sans-serif;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.button-parent {
+	display: inline-block;
+	padding: 10px;
+}
+
+.game-button {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	cursor: pointer;
+	outline: none;
+	box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+	transition: opacity .1s ease-in-out;
+	opacity: 0.5;
+
+}
+.game-button:active {
+	position:relative;
+	top:1px;
+}
+
+.red {
+	background-color: rgba(228,104,93,1);
+	border: thin solid #b23d35;
+}
+.red:hover {
+	background-color: rgba(228,104,93,0.9);
+}
+
+.green {
+	background-color: rgba(68,199,103,1);
+	border: thin solid #18ab29;
+}
+.green:hover {
+	background-color: rgba(68,199,103,0.9);
+}
+
+.blue {
+	background-color: rgba(6,136,250,1);
+	border: thin solid #0688fa;
+}
+.blue:hover {
+	background-color: rgba(6,136,250,0.9);
+}
+
+.yellow {
+	background-color: rgba(255,234,78,1);
+	border: thin solid #ffab23;
+}
+.yellow:hover {
+	background-color: rgba(255,234,78,0.8);
+}
