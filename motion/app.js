@@ -13,4 +13,14 @@ function motionEvent(e) {
 	zDiv.textContent = Math.floor(z);
 }
 
-window.addEventListener("devicemotion", motionEvent, true);
+function orientationEvent(e){
+	var x = e.beta;
+	var y = e.gamma;
+	var z = e.alpha;
+		
+	xDiv.textContent = Math.floor(x);
+	yDiv.textContent = Math.floor(y);
+	zDiv.textContent = Math.floor(z);
+}
+
+window.addEventListener("deviceorientation", orientationEvent, true);
