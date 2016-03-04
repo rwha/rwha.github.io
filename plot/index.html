@@ -5,7 +5,7 @@
 	<title>curves</title>
 	<style>
 		:root { 
-			--foo: if(x > 5) this.width = 10; 
+			--main-height: 70vh; 
 		}
 		
 		.test {
@@ -21,24 +21,25 @@
 		.parent {
 			background-color: #FFF;
 			width: 90vw;
-			height: 70vh;
+			height: var(--main-height);
 			margin: auto;
 			margin-top: 20px;
 			padding: 10px;
+			padding-right: 5px;
 			position: relative;
 			box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 		}
 		
 		.canvas {
 			float: left;
-			height: 70vh;
-			width: 70vh;
+			height: var(--main-height);
+			width: var(--main-height);
 			position: relative;
 		}
 		
 		.description {
-			width: calc(90vw - 72vh); 
-			height: 70vh;
+			width: calc(88vw - var(--main-height)); 
+			height: var(--main-height);
 			padding-right: 5px;
 			display: block;
 			position: relative;
