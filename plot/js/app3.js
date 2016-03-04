@@ -15,7 +15,7 @@ var Curves = (function() {
 	var scaleX = width / rangeX;
 	var scaleY = height / rangeY;
 	var pi = 3.14159265358979323;
-	var canvas, ctx;
+	var canvas, ctx, ap;
 	
 	function init() {
 		canvas = document.createElement('canvas');
@@ -40,7 +40,12 @@ var Curves = (function() {
 	function addCanvas(fname) {
 		init();
 		var curve = curve_meta[fname];
-		curve.type(curve.draw);
+		if(curve.type.name === "animatedPara") {
+			var s = minX;
+			ap = window.setInterval(curve.type(curve.draw, s), 60);
+		} else {
+			curve.type(curve.draw);
+		}
 		var pd = document.createElement('div');
 		pd.className = 'parent';
 		var cd = document.createElement('div');
@@ -90,9 +95,9 @@ var Curves = (function() {
 		ctx.restore();
 	}
 
-	function parametric(point,color) {
+	function parametric(point) {
 		var tos,los,started = false;
-		var color = color || 'green';
+		var color = 'green';
 		ctx.save();
 		ctx.beginPath();
 		for (var s = minX; s <= maxX; s += iteration) {
@@ -114,6 +119,38 @@ var Curves = (function() {
 		ctx.strokeStyle = color;
 		ctx.stroke();
 		ctx.restore();
+	}
+	
+	function animatedPara(point, s) {
+		var tos,los,started = false;
+		var color = 'green';
+		var i = minX;
+		ctx.save();
+		ctx.beginPath();
+		ctx.shadowColor = color;
+		ctx.strokeStyle = color;
+		while (i <= maxX) {
+			var points = point(i);
+			var x = points.x;
+			var y = points.y;
+			xi = (x-minX)/rangeX*width;
+			yi = (maxY-y)/rangeY*height;
+			if(!started) { started = true; ctx.moveTo(xi,yi); }
+			tos = (xi>0 && xi<width && yi>0 && yi<height);
+			if(los || tos) {
+				ctx.lineTo(xi,yi);
+			} else {
+				ctx.moveTo(xi,yi);
+			}
+			los=tos;
+			ctx.stroke();
+			ctx.restore();
+			i += iteration;
+			s += iteration;
+			if (s >= maxX) {
+				window.clearInterval(ap);
+			}
+		}
 	}
 
 	var curve_meta = {
