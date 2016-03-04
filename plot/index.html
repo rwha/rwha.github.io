@@ -2,9 +2,56 @@
 <html>
 <head>
 	<title>curves</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			background-color: rgba(0,0,0,0.1);
+			margin-top: 10px;
+		}
+		
+		.parent {
+			background-color: #FFF;
+			width: 90%;
+			height: 700px;
+			margin: auto;
+			margin-top: 20px;
+			padding: 10px;
+			position: relative;
+			box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+		}
+		
+		.canvas {
+			float: left;
+			height:  700px;
+			position: relative;
+		}
+		
+		.description {
+			height: 700px;
+			display: grid;
+			position: relative;
+			padding-left: 10px;
+		}
+		
+		.description h3 {
+			color: rgba(0,0,0,0.8);
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.description span {
+			color: rgba(0,0,0,0.7);
+			font-size: 0.9em;
+			line-height: 1.3em;
+		}
+
+		.math {
+			font-weight: bold;
+		}
+
+	</style>
+	<script src="js/app3.js"></script>
 </head>
 <body>
-    <canvas id="canvas" width="900" height="900"></canvas>
-	<script src="js/app2.js"></script>
 </body>
 </html>

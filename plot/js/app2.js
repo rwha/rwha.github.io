@@ -4,10 +4,8 @@ var Curves = (function() {
 	var minY = -10;
 	var maxX = 10;
 	var maxY = 10;
-	var axisColor = '#aaa';
 	var pi = 3.14159265358979323;
-	var e = 2.718281828459045;
-	var ctx = canvas.getContext('2d');
+	var ctx = canvas.getContext('2d',{alpha: false});
 	var height = canvas.height;
 	var width = canvas.width;
 	var rangeX = maxX - minX;
@@ -22,22 +20,14 @@ var Curves = (function() {
 	
 	function init() {
 		ctx.clearRect(0,0,width,height);
-		ctx.save();
 		ctx.beginPath();
 		ctx.moveTo(0, centerY);
 		ctx.lineTo(width, centerY);
-		ctx.strokeStyle = axisColor;
-		ctx.lineWidth = 1;
-		ctx.stroke();
-		ctx.restore();
-		ctx.save();
-		ctx.beginPath();
 		ctx.moveTo(centerX, 0);
 		ctx.lineTo(centerX, height);
-		ctx.strokeStyle = axisColor;
+		ctx.strokeStyle = '#aaa';
 		ctx.lineWidth = 1;
 		ctx.stroke();
-		ctx.restore();
 	}
 	
 	function polar(radius,period,color) {
@@ -68,7 +58,7 @@ var Curves = (function() {
 		ctx.lineJoin = 'round';
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = color;
-		ctx.lineWidth = 1;
+		ctx.lineWidth = 2;
 		ctx.strokeStyle = color;
 		ctx.stroke();
 		ctx.restore();
@@ -98,7 +88,7 @@ var Curves = (function() {
 		ctx.lineJoin = 'round';
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = color;
-		ctx.lineWidth = 1;
+		ctx.lineWidth = 2;
 		ctx.strokeStyle = color;
 		ctx.stroke();
 		ctx.restore();
@@ -393,10 +383,6 @@ polar(function(theta){
 		var yi = (a-b) * Math.sin(s) - b * Math.sin((a/b-1)*s)
 		return {x: xi, y: yi};
 	}
-
-
-
-
 
 */
 
