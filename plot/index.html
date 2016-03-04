@@ -4,6 +4,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>curves</title>
 	<style>
+		:root { 
+			--foo: if(x > 5) this.width = 10; 
+		}
+		
+		.test {
+			width: var(--foo);
+		}
+		
 		body {
 			font-family: sans-serif;
 			background-color: rgba(0,0,0,0.1);
@@ -12,9 +20,8 @@
 		
 		.parent {
 			background-color: #FFF;
-			width: 90%;
-			width: calc(100vw - 10%);
-			height: calc(100vh - 15em); /*height: 70vh;*/
+			width: 90vw;
+			height: 70vh;
 			margin: auto;
 			margin-top: 20px;
 			padding: 10px;
@@ -24,15 +31,29 @@
 		
 		.canvas {
 			float: left;
-			height: calc(100vh - 15em); /*height: 70vh;*/
+			height: 70vh;
+			width: 70vh;
 			position: relative;
 		}
 		
 		.description {
-			height: calc(100vh - 15em); /*height: 70vh;*/
-			display: grid;
+			width: calc(90vw - 72vh); 
+			height: 70vh;
+			padding-right: 5px;
+			display: block;
 			position: relative;
-			padding-left: 10px;
+			float: right;
+			text-align: justify;
+			overflow: auto;
+		}
+		
+		.description::-webkit-scrollbar {
+			height: 4px;
+			width: 4px;
+		}
+		
+		.description::-webkit-scrollbar-thumb {
+			background: rgba(0,0,0,0.26);
 		}
 		
 		.description h3 {
@@ -45,7 +66,6 @@
 			color: rgba(0,0,0,0.7);
 			font-size: 0.9em;
 			line-height: 1.3em;
-			text-align: justify;
 		}
 
 		.math {
@@ -56,5 +76,6 @@
 	<script src="js/app3.js"></script>
 </head>
 <body>
+<div class="test"></div>
 </body>
 </html>

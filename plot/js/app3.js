@@ -29,7 +29,7 @@ var Curves = (function() {
 		ctx.moveTo(centerX, 0);
 		ctx.lineTo(centerX, height);
 		ctx.strokeStyle = '#aaa';
-		ctx.lineWidth = 1;
+		ctx.lineWidth = 2;
 		ctx.stroke();
 		ctx.lineCap = 'round';
 		ctx.lineJoin = 'round';
