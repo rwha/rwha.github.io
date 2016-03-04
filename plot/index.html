@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>curves</title>
 	<style>
 		body {
@@ -12,8 +13,8 @@
 		.parent {
 			background-color: #FFF;
 			width: 90%;
-			width: calc(100% - 3em);
-			/*height: 70vh;*/
+			width: calc(100vw - 10%);
+			height: calc(100vh - 15em); /*height: 70vh;*/
 			margin: auto;
 			margin-top: 20px;
 			padding: 10px;
@@ -23,12 +24,12 @@
 		
 		.canvas {
 			float: left;
-			height:  70vh;
+			height: calc(100vh - 15em); /*height: 70vh;*/
 			position: relative;
 		}
 		
 		.description {
-			height: 70vh;
+			height: calc(100vh - 15em); /*height: 70vh;*/
 			display: grid;
 			position: relative;
 			padding-left: 10px;
