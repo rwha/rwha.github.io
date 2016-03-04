@@ -328,6 +328,9 @@ window.onload = function() {
 		Curves.showCurve(Curves.availableCurves[i]);
 		i++;
 	}
+	
+	var ph = getComputedStyle(document.getElementsByClassName('parent')[0]).height;
+	document.documentElement.style.setProperty('--main-height', ph);
 }
 
 
