@@ -1,82 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<meta charset="utf-8">
+	<link href="css/desktop.css" rel="stylesheet" />
+	<!--<link href='https://fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic' rel='stylesheet' type='text/css'>-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>curves</title>
-	<style>
-		:root { 
-			--main-height: 70vh; 
-		}
-		
-		.test {
-			width: var(--foo);
-		}
-		
-		body {
-			font-family: sans-serif;
-			background-color: rgba(0,0,0,0.1);
-			margin-top: 10px;
-		}
-		
-		.parent {
-			background-color: #FFF;
-			width: 90vw;
-			height: var(--main-height);
-			margin: auto;
-			margin-top: 20px;
-			padding: 10px;
-			padding-right: 5px;
-			position: relative;
-			box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-		}
-		
-		.canvas {
-			float: left;
-			height: var(--main-height);
-			width: var(--main-height);
-			position: relative;
-		}
-		
-		.description {
-			width: calc(88vw - var(--main-height)); 
-			height: var(--main-height);
-			padding-right: 5px;
-			display: block;
-			position: relative;
-			float: right;
-			text-align: justify;
-			overflow: auto;
-		}
-		
-		.description::-webkit-scrollbar {
-			height: 4px;
-			width: 4px;
-		}
-		
-		.description::-webkit-scrollbar-thumb {
-			background: rgba(0,0,0,0.26);
-		}
-		
-		.description h3 {
-			color: rgba(0,0,0,0.8);
-			font-weight: bold;
-			text-align: center;
-		}
-
-		.description span {
-			color: rgba(0,0,0,0.7);
-			font-size: 0.9em;
-			line-height: 1.3em;
-		}
-
-		.math {
-			font-weight: bold;
-		}
-
-	</style>
-	<script src="js/app3.js"></script>
+	<script src="js/app4.js"></script>
 </head>
 <body>
-<div class="test"></div>
+<template id="cardTemplate">
+<div class="parent">
+	<div class="canvas"></div>
+	<div class="description">
+		<h3></h3>
+		<span></span>
+	</div>
+</div>
+</template>
 </body>
 </html>

@@ -1,0 +1,67 @@
+:root { 
+	--main-height: 70vh; 
+}
+		
+body {
+	font-family: sans-serif; /*"RobotoDraft","Roboto",sans-serif;*/
+	background-color: rgba(0,0,0,0.1);
+	margin-top: 10px;
+}
+		
+.parent {
+	background-color: #FFF;
+	width: 90vw;
+	height: var(--main-height);
+	margin: auto;
+	margin-top: 20px;
+	padding: 10px;
+	padding-right: 5px;
+	position: relative;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	border-radius: 2px;
+}
+		
+.canvas {
+	float: left;
+	height: var(--main-height);
+	width: var(--main-height);
+	position: relative;
+	/*box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);*/
+
+}
+	
+.description {
+	width: calc(89vw - var(--main-height)); 
+	height: var(--main-height);
+	padding-right: 5px;
+	display: block;
+	position: relative;
+	float: right;
+	text-align: justify;
+	overflow: auto;
+}
+		
+.description::-webkit-scrollbar {
+	height: 4px;
+	width: 4px;
+}
+		
+.description::-webkit-scrollbar-thumb {
+	background: rgba(0,0,0,0.26);
+}
+		
+.description h3 {
+	color: rgba(0,0,0,0.8);
+	text-align: center;
+	-webkit-margin-before: 0.9em;
+}
+
+.description span {
+	color: rgba(0,0,0,0.7);
+	font-size: 0.9em;
+	line-height: 1.3em;
+}
+
+.math {
+	font-weight: bold;
+}

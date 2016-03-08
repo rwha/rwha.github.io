@@ -1,13 +1,27 @@
-var Curves = (function() {
-	var minX = -10;
-	var minY = -10;
-	var maxX = 10;
-	var maxY = 10;
+/*
+var options = {
+	minX: -10, 
+	maxX: 10,
+	minY: -10, 
+	maxY: 10,
+	iteration: 10000,
+	width: 1000,
+	height: 1000
+}
+*/
+'use strict';
+
+var Curves = (function(options) {
+	options = options || {};
+	var minX = options.minX || -10;
+	var minY = options.minY || -10;
+	var maxX = options.maxX || 10;
+	var maxY = options.maxY || 10;
 	var rangeX = maxX - minX;
 	var rangeY = maxY - minY;
-	var iteration = (rangeX) / 10000;
-	var width = 1000;
-	var height = 1000;
+	var iteration = rangeX / (options.iteration || 10000);
+	var width = (options.width || 1000);
+	var height = (options.height || 1000);
 	var unitX = width / rangeX;
 	var unitY = height / rangeY;
 	var centerX = Math.round(Math.abs(minX / rangeX) * width);
@@ -15,9 +29,9 @@ var Curves = (function() {
 	var scaleX = width / rangeX;
 	var scaleY = height / rangeY;
 	var pi = 3.14159265358979323;
-	var canvas, ctx, ap;
+	var canvas, ctx;
 	
-	function init() {
+	function createCanvas() {
 		canvas = document.createElement('canvas');
 		canvas.width = width;
 		canvas.height = height;
@@ -37,15 +51,20 @@ var Curves = (function() {
 		ctx.lineWidth = 2;
 	}
 	
-	function addCanvas(fname) {
-		init();
+	function addCard(fname) {
+		createCanvas();
 		var curve = curve_meta[fname];
-		if(curve.type.name === "animatedPara") {
-			var s = minX;
-			ap = window.setInterval(curve.type(curve.draw, s), 60);
-		} else {
-			curve.type(curve.draw);
+		switch (curve.type) {
+			case 'parametric':
+				parametric(curve.draw);
+				break;
+			case 'polar':
+				polar(curve.draw);
+				break;
+			default:
+				console.log('unknown function type: ' + curve.type);
 		}
+		//curve.type(curve.draw);
 		var pd = document.createElement('div');
 		pd.className = 'parent';
 		var cd = document.createElement('div');
@@ -65,16 +84,14 @@ var Curves = (function() {
 		document.body.appendChild(pd);
 	};
 	
-	function polar(radius,period,color) {
-		var s,c,r,x,y,xi,yi,tos,los,started=false;
-		var period = period || 6;
-		var color = color || 'red';
-		var thetamin = 0;
-		var thetamax = period * pi;
+	function polar(radius) {
+		var r,x,y,xi,yi,tos,los,started=false;
+		var color = 'red';
+		var thetamax = 6 * pi;
 		var thetastep = 0.01;
 		ctx.save();
 		ctx.beginPath();
-		for (var theta = thetamin; theta <= thetamax; theta += thetastep) {
+		for (var theta = 0; theta <= thetamax; theta += thetastep) {
 			r = radius(theta);
 			x = r.x;
 			y = r.y;
@@ -89,21 +106,20 @@ var Curves = (function() {
 			}
 			los=tos;
 		}
-		ctx.shadowColor = color;
-		ctx.strokeStyle = color;
+		ctx.shadowColor = ctx.strokeStyle = color;
 		ctx.stroke();
 		ctx.restore();
 	}
 
 	function parametric(point) {
-		var tos,los,started = false;
+		var x,y,xi,yi,tos,los,started = false;
 		var color = 'green';
 		ctx.save();
 		ctx.beginPath();
 		for (var s = minX; s <= maxX; s += iteration) {
 			var points = point(s);
-			var x = points.x;
-			var y = points.y;
+			x = points.x;
+			y = points.y;
 			xi = (x-minX)/rangeX*width;
 			yi = (maxY-y)/rangeY*height;
 			if(!started) { started = true; ctx.moveTo(xi,yi); }
@@ -115,47 +131,14 @@ var Curves = (function() {
 			}
 			los=tos;
 		}
-		ctx.shadowColor = color;
-		ctx.strokeStyle = color;
+		ctx.shadowColor = ctx.strokeStyle = color;
 		ctx.stroke();
 		ctx.restore();
 	}
 	
-	function animatedPara(point, s) {
-		var tos,los,started = false;
-		var color = 'green';
-		var i = minX;
-		ctx.save();
-		ctx.beginPath();
-		ctx.shadowColor = color;
-		ctx.strokeStyle = color;
-		while (i <= maxX) {
-			var points = point(i);
-			var x = points.x;
-			var y = points.y;
-			xi = (x-minX)/rangeX*width;
-			yi = (maxY-y)/rangeY*height;
-			if(!started) { started = true; ctx.moveTo(xi,yi); }
-			tos = (xi>0 && xi<width && yi>0 && yi<height);
-			if(los || tos) {
-				ctx.lineTo(xi,yi);
-			} else {
-				ctx.moveTo(xi,yi);
-			}
-			los=tos;
-			ctx.stroke();
-			ctx.restore();
-			i += iteration;
-			s += iteration;
-			if (s >= maxX) {
-				window.clearInterval(ap);
-			}
-		}
-	}
-
 	var curve_meta = {
 		parabola: {
-			type: parametric,
+			type: "parametric",
 			title: "Parabola",
 			description: "The parabola was studied by Menaechmus who was a pupil of Plato and Eudoxus. He attempted to duplicate the cube, namely to find side of a cube that has a volume double that of a given cube. Hence he attempted to solve x3 = 2 by geometrical methods. In fact the geometrical methods of ruler and compass constructions cannot solve this (but Menaechmus did not know this). Menaechmus solved it by finding the intersection of the two parabolas x2 = y and y2 = 2x.<br><br>Euclid wrote about the parabola and it was given its present name by Apollonius. The focus and directrix of a parabola were considered by Pappus. Pascal considered the parabola as a projection of a circle and Galileo showed that projectiles follow parabolic paths. Gregory and Newton considered the properties of a parabola which bring parallel rays of light to a focus.<br><br>The pedal of the parabola with its vertex as pedal point is a cissoid. The pedal of the parabola with its focus as pedal point is a straight line. With the foot of the directrix as pedal point it is a right strophoid (an oblique strophoid for any other point of the directrix). The pedal curve when the pedal point is the image of the focus in the directrix is a Trisectrix of Maclaurin.<br><br>The evolute of the parabola is Neile's parabola. From a point above the evolute three normals can be drawn to the parabola, while only one normal can be drawn to the parabola from a point below the evolute.<br><br>If the focus of the parabola is taken as the centre of inversion, the parabola inverts to a cardioid. If the vertex of the parabola is taken as the centre of inversion, the parabola inverts to a Cissoid of Diocles.<br><br>The caustic of the parabola with the rays perpendicular to the axis of the parabola is Tschirnhaus's Cubic.",
 			draw: function(s){
@@ -163,7 +146,7 @@ var Curves = (function() {
 			},
 		},
 		astroid: {
-			type: parametric,
+			type: "parametric",
 			title: "Astroid",
 			description: "The astroid was first discussed by Johann Bernoulli in 1691-92. It also appears in Leibniz's correspondence of 1715. It is sometimes called the tetracuspid for the obvious reason that it has four cusps. The astroid only acquired its present name in 1836 in a book published in Vienna. It has been known by various names in the literature, even after 1836, including cubocycloid and paracycle.<br><br>The length of the astroid is 6a and its area is 3&#120587;a2/8. The gradient of the tangent T from the point with parameter p is -tan(p). The equation of this tangent T is:<p class='math'>x sin(p) + y cos(p) = a sin(2p)/2</p>Let T cut the x-axis and the y-axis at X and Y respectively. Then the length XY is a constant and is equal to a. It can be formed by rolling a circle of radius a/4 on the inside of a circle of radius a. It can also be formed as the envelope produced when a line segment is moved with each end on one of a pair of perpendicular axes. It is therefore a glissette.",
 			draw: function(s) {
@@ -176,7 +159,7 @@ var Curves = (function() {
 			}
 		},
 		bicorn: {
-			type: parametric,
+			type: "parametric",
 			title: "Bicorn",
 			description: "no description available",
 			draw: function(s) {
@@ -188,7 +171,7 @@ var Curves = (function() {
 			}
 		},
 		cardiod: {
-			type: polar,
+			type: "polar",
 			title: "Cardiod",
 			description: "no description available",
 			draw: function(theta) {
@@ -200,7 +183,7 @@ var Curves = (function() {
 			}
 		},
 		cayleysSextic: {
-			type: polar,
+			type: "polar",
 			title: "Cayley's Sextic",
 			description: "no description available",
 			draw: function(theta) {
@@ -211,7 +194,7 @@ var Curves = (function() {
 			}
 		},
 		cissoidOfDiocles: {
-			type: polar,
+			type: "polar",
 			title: "Cissoid of Diocles",
 			description: "no description available",
 			draw: function(theta) {
@@ -221,7 +204,7 @@ var Curves = (function() {
 			}
 		},
 		cochleoid: {
-			type: polar,
+			type: "polar",
 			title: "Cochleoid",
 			description: "no description available",
 			draw: function(theta) {
@@ -231,7 +214,7 @@ var Curves = (function() {
 			}
 		},
 		conchoid: {
-			type: polar,
+			type: "polar",
 			title: "Conchoid",
 			description: "no description available",
 			draw: function(theta) {
@@ -242,7 +225,7 @@ var Curves = (function() {
 			}
 		},
 		conchoidOfDeSluze: {
-			type: polar,
+			type: "polar",
 			title: "Conchoid of DeSluze",
 			description: "no description available",
 			draw: function(theta) {
@@ -254,7 +237,7 @@ var Curves = (function() {
 			}
 		},
 		cycloid: {
-			type: parametric,
+			type: "parametric",
 			title: "Cycloid",
 			description: "no description available",
 			draw: function(s) {
@@ -266,7 +249,7 @@ var Curves = (function() {
 			}
 		},
 		curateCycloid: {
-			type: parametric,
+			type: "parametric",
 			title: "Curate Cycloid",
 			description: "no description available",
 			draw: function(s) {
@@ -278,7 +261,7 @@ var Curves = (function() {
 			}
 		},
 		prolateCycloid: {
-			type: parametric,
+			type: "parametric",
 			title: "Prolate Cycloid",
 			description: "no description available",
 			draw: function(s) {
@@ -290,7 +273,7 @@ var Curves = (function() {
 			}
 		},
 		foliumOfDescartes: {
-			type: polar,
+			type: "polar",
 			title: "Folium of Descartes",
 			description: "This folium was first discussed by Descartes in 1638 but, although he found the correct shape of the curve in the positive quadrant, he believed that this leaf shape was repeated in each quadrant like the four petals of a flower.<br><br>The problem to determine the tangent to the curve was proposed to Roberval who also wrongly believed the curve had the form of a jasmine flower. His name of fleur de jasmin was later changed.<br><br>The curve is sometimes known as the noeud de ruban. The folium has an asymptote x + y + a = 0.<br><br>The equation of the tangent at the point with t = p is<p class='math'>p(p3 - 2)x + (1 - 2p3)y + 3ap2 = 0</p>The curve passes through the origin at t = 0 and approaches the origin a second time as t goes to infinity.",
 			draw: function(theta) {
@@ -302,7 +285,7 @@ var Curves = (function() {
 			}
 		},
 		hypocycloid: {
-			type: parametric,
+			type: "parametric",
 			title: "Hypocycloid",
 			description: "no description available",
 			draw: function(s) {
@@ -317,16 +300,15 @@ var Curves = (function() {
 
 	return {
 		availableCurves: Object.getOwnPropertyNames(curve_meta),
-		showCurve: addCanvas
+		curveCard: addCard
 	};
 	
 })();
 
 window.onload = function() {
-	var i=0;
-	while(i < Curves.availableCurves.length) {
-		Curves.showCurve(Curves.availableCurves[i]);
-		i++;
+
+	for(var i = 0, l = Curves.availableCurves.length; i<l; i++) {
+		Curves.curveCard(Curves.availableCurves[i]);
 	}
 	
 	var ph = getComputedStyle(document.getElementsByClassName('parent')[0]).height;
