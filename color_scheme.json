@@ -1,0 +1,14 @@
+{
+	"colors": {
+		"primary": {
+			"main": "#607D8B", 
+			"light": "#CFD8DC", 
+			"dark": "#37474F"
+		},
+		"accent": {
+			"main": "#FF6E40", 
+			"light": "#FF9E80", 
+			"dark": "#FF3D00"
+		}
+	}
+}

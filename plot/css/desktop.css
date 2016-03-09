@@ -1,9 +1,9 @@
 :root { 
 	--main-height: 70vh; 
 }
-		
+
 body {
-	font-family: sans-serif; /*"RobotoDraft","Roboto",sans-serif;*/
+	font-family: sans-serif;
 	background-color: rgba(0,0,0,0.1);
 	margin-top: 10px;
 }
@@ -26,10 +26,12 @@ body {
 	height: var(--main-height);
 	width: var(--main-height);
 	position: relative;
-	/*box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);*/
-
 }
-	
+
+.canvas canvas {
+	height: 100%;
+}
+
 .description {
 	width: calc(89vw - var(--main-height)); 
 	height: var(--main-height);
