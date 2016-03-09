@@ -109,12 +109,29 @@ curves.Card.prototype.create = function(name) {
 		default:
 			console.log('unknown function type: ' + curves.meta[name].type);
 	}
+
 	curves.meta[name].drawn = true;
 	var parent = document.importNode(document.querySelector('#cardTemplate').content, true);
 	parent.querySelector('.canvas').appendChild(c);
 	parent.querySelector('h3').textContent = curves.meta[name].title;
 	parent.querySelector('span').innerHTML = curves.meta[name].description;
-	document.body.appendChild(parent);
+	document.getElementById('tiles').appendChild(parent);
+	document.getElementById('tiles').lastChild.previousSibling.addEventListener('click', function(e){
+		var show = document.getElementById('show');
+		show.innerHTML = '';
+		document.querySelectorAll('.parent').forEach(function(e){e.style.backgroundColor = '';})
+		var c = document.createElement('canvas');
+		var ctx = c.getContext('2d');
+		var oc = this.querySelector('canvas');
+		c.width = oc.width;
+		c.height = oc.height;
+		ctx.drawImage(oc, 0, 0);
+		var div = this.querySelector('.canvas').cloneNode(false);
+		div.appendChild(c);
+		show.appendChild(div);
+		show.appendChild(this.querySelector('.description').cloneNode(true));
+		this.style.backgroundColor = 'rgba(0,0,0,0.05)';
+	});
 }
 
 curves.meta = {
@@ -291,7 +308,6 @@ curves.meta = {
 			return {x: xi, y: yi};
 		}
 	}
-
 };
 
 /*
@@ -306,11 +322,12 @@ curves.meta.test = {
 }
 */
 
-var cl = Object.getOwnPropertyNames(curves.meta),
+var cl = Object.keys(curves.meta),
 	cards = new curves.Card();
 	
 window.onload = function() {
 	for(var i=0,l=cl.length;i<l;i++){
 		cards.create(cl[i]);
-	}
+	}	
 }
+

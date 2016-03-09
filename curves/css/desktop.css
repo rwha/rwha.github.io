@@ -5,65 +5,90 @@
 body {
 	font-family: sans-serif;
 	background-color: rgba(0,0,0,0.1);
-	margin-top: 10px;
-}
-		
-.parent {
-	background-color: #FFF;
-	width: 90vw;
-	height: var(--main-height);
-	margin: auto;
-	margin-top: 20px;
-	padding: 10px;
-	padding-right: 5px;
-	position: relative;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-	border-radius: 2px;
-}
-		
-.canvas {
-	float: left;
-	height: var(--main-height);
-	width: var(--main-height);
-	position: relative;
+	margin: 0;
 }
 
-.canvas canvas {
-	height: 100%;
-}
-
-.description {
-	width: calc(89vw - var(--main-height)); 
-	height: var(--main-height);
-	padding-right: 5px;
-	display: block;
-	position: relative;
-	float: right;
-	text-align: justify;
-	overflow: auto;
-}
-		
-.description::-webkit-scrollbar {
-	height: 4px;
-	width: 4px;
-}
-		
-.description::-webkit-scrollbar-thumb {
-	background: rgba(0,0,0,0.26);
-}
-		
-.description h3 {
-	color: rgba(0,0,0,0.8);
-	text-align: center;
-	-webkit-margin-before: 0.9em;
-}
-
-.description span {
-	color: rgba(0,0,0,0.7);
-	font-size: 0.9em;
-	line-height: 1.3em;
-}
 
 .math {
 	font-weight: bold;
 }
+
+#tiles {
+	background-color: #FFF;
+	display: block;
+	max-width: 440px;
+	width: 30vw;
+	height: 100vh;
+	float: left;
+	overflow-y: auto;
+	box-shadow: 0 0 6px 3px rgba(0,0,0,0.16), 0 0 6px 3px rgba(0,0,0,0.23);
+}
+
+#tiles .parent {
+	position: relative;
+	height: 3em;
+	padding: 5px;
+	padding-left: 24px;
+	z-index: 3;
+	border-bottom: thin solid rgba(0,0,0,0.1);
+}
+
+#tiles .parent:hover {
+	background-color: rgba(0,0,0,0.05);
+	cursor: pointer;
+}
+
+#tiles .parent .canvas {
+	display: none;
+}
+
+#tiles .parent .description {
+	font-size: 0.8em;
+	color: rgba(0,0,0,0.7);
+	letter-spacing: 1px;
+}
+
+#tiles .parent .description span {
+	display: none;
+}
+
+#tiles::-webkit-scrollbar {
+	height: 4px;
+	width: 4px;
+}
+		
+#tiles::-webkit-scrollbar-thumb {
+	background: rgba(0,0,0,0.26);
+}
+#show {
+	display: inline-block;
+	height: 100%;
+	width: calc(70vw - 40px);
+	position: absolute;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow-y: auto;
+	
+}
+#show::-webkit-scrollbar {
+	height: 4px;
+	width: 4px;
+}
+		
+#show::-webkit-scrollbar-thumb {
+	background: rgba(0,0,0,0.26);
+}
+
+#show .canvas {
+	width: 60vw;
+	height: 60vw;
+	position: relative;
+	margin: 10px auto;
+	background-color: white;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#show .canvas canvas {
+	height: 100%;
+}
+
