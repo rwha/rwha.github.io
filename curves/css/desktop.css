@@ -26,31 +26,19 @@ body {
 
 #tiles .parent {
 	position: relative;
-	height: 3em;
+	font-size: 1em;
+	line-height: 2em;
 	padding: 5px;
 	padding-left: 24px;
 	z-index: 3;
 	border-bottom: thin solid rgba(0,0,0,0.1);
+	cursor: pointer;
 }
 
 #tiles .parent:hover {
 	background-color: rgba(0,0,0,0.05);
-	cursor: pointer;
 }
 
-#tiles .parent .canvas {
-	display: none;
-}
-
-#tiles .parent .description {
-	font-size: 0.8em;
-	color: rgba(0,0,0,0.7);
-	letter-spacing: 1px;
-}
-
-#tiles .parent .description span {
-	display: none;
-}
 
 #tiles::-webkit-scrollbar {
 	height: 4px;
@@ -80,12 +68,16 @@ body {
 }
 
 #show .canvas {
-	width: 60vw;
-	height: 60vw;
+	height: calc(70vw - 40px);
 	position: relative;
 	margin: 10px auto;
 	background-color: white;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	overflow: hidden;
+	opacity: 1;
+	transition: opacity 0.3s;
+	transition: transform 0.2s ease-out;
+	transform: translateX(-120%);
 }
 
 #show .canvas canvas {

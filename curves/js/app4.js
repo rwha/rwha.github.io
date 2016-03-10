@@ -1,138 +1,5 @@
 'use strict';
-var curves = {};
-
-curves.Card = function(options) {
-	options = options || {};
-	this.minX = options.minX || -10;
-	this.minY = options.minY || -10;
-	this.maxX = options.maxX || 10;
-	this.maxY = options.maxY || 10;
-	this.rangeX = this.maxX - this.minX;
-	this.rangeY = this.maxY - this.minY;
-	this.iteration = this.rangeX / (options.iteration || 10000);
-	this.width = options.width || 1000;
-	this.height = options.height || 1000;
-	this.centerX = Math.round(Math.abs(this.minX / this.rangeX) * this.width);
-	this.centerY = Math.round(Math.abs(this.minY / this.rangeY) * this.height);
-	this.pi = 3.14159265358979323;
-	this.thetamax = 6 * this.pi;
-	this.thetastep = 0.01;
-	this.cachedCanvas = (function(t){
-		var c = document.createElement('canvas');
-		c.width = t.width;
-		c.height = t.height;
-		var ctx = c.getContext('2d');
-		ctx.beginPath();
-		ctx.moveTo(0, t.centerY);
-		ctx.lineTo(t.width, t.centerY);
-		ctx.moveTo(t.centerX, 0);
-		ctx.lineTo(t.centerX, t.height);
-		ctx.strokeStyle = '#aaa';
-		ctx.lineWidth = 2;
-		ctx.stroke();
-		return c;
-	}(this));
-}
-
-curves.Card.prototype.parametric = function(point, ctx) {
-	var x,y,xi,yi,tos,los,started = false;
-	ctx.beginPath();
-	for (var s = this.minX; s <= this.maxX; s += this.iteration) {
-		var points = point(s);
-		x = points.x;
-		y = points.y;
-		xi = (x-this.minX)/this.rangeX*this.width;
-		yi = (this.maxY-y)/this.rangeY*this.height;
-		if(!started) { started = true; ctx.moveTo(xi,yi); }
-		tos = (xi>0 && xi<this.width && yi>0 && yi<this.height);
-		if(los || tos) {
-			ctx.lineTo(xi,yi);
-		} else {
-			ctx.moveTo(xi,yi);
-		}
-		los=tos;
-	}
-	ctx.shadowColor = ctx.strokeStyle = 'green';
-	ctx.stroke();
-}
-
-curves.Card.prototype.polar = function(radius, ctx) {
-	var r,x,y,xi,yi,tos,los,started=false;
-	ctx.beginPath();
-	for (var theta = 0; theta <= this.thetamax; theta += this.thetastep) {
-		r = radius(theta);
-		x = r.x;
-		y = r.y;
-		xi = (x-this.minX)/this.rangeX*this.width;
-		yi = (this.maxY-y)/this.rangeY*this.height;
-		if(!started) { started = true; ctx.moveTo(xi,yi); }
-		tos = (xi>0 && xi<this.width && yi>0 && yi<this.height);
-		if(los || tos) {
-			ctx.lineTo(xi,yi);
-		} else {
-			ctx.moveTo(xi,yi);
-		}
-		los=tos;
-	}
-	ctx.shadowColor = ctx.strokeStyle = 'red';
-	ctx.stroke();
-}
-
-curves.Card.prototype.generateCanvas = function() {
-	var c = document.createElement('canvas');
-	c.width = this.width;
-	c.height = this.height;
-	var ctx = c.getContext('2d');
-	ctx.drawImage(this.cachedCanvas, 0, 0);
-	ctx.lineCap = 'round';
-	ctx.lineJoin = 'round';
-	ctx.shadowBlur = 1;
-	ctx.lineWidth = 2;
-	return c;
-}
-
-curves.Card.prototype.create = function(name) {
-	if(!curves.meta[name]) {
-		console.error('unknown curve: ' + name);
-		return;
-	}
-	var c = this.generateCanvas();
-	c.setAttribute('id', name);
-	var ctx = c.getContext('2d');
-	switch (curves.meta[name].type) {
-		case 'parametric':
-			this.parametric(curves.meta[name].draw, ctx);
-			break;
-		case 'polar':
-			this.polar(curves.meta[name].draw, ctx);
-			break;
-		default:
-			console.log('unknown function type: ' + curves.meta[name].type);
-	}
-
-	curves.meta[name].drawn = true;
-	var parent = document.importNode(document.querySelector('#cardTemplate').content, true);
-	parent.querySelector('.canvas').appendChild(c);
-	parent.querySelector('h3').textContent = curves.meta[name].title;
-	parent.querySelector('span').innerHTML = curves.meta[name].description;
-	document.getElementById('tiles').appendChild(parent);
-	document.getElementById('tiles').lastChild.previousSibling.addEventListener('click', function(e){
-		var show = document.getElementById('show');
-		show.innerHTML = '';
-		document.querySelectorAll('.parent').forEach(function(e){e.style.backgroundColor = '';})
-		var c = document.createElement('canvas');
-		var ctx = c.getContext('2d');
-		var oc = this.querySelector('canvas');
-		c.width = oc.width;
-		c.height = oc.height;
-		ctx.drawImage(oc, 0, 0);
-		var div = this.querySelector('.canvas').cloneNode(false);
-		div.appendChild(c);
-		show.appendChild(div);
-		show.appendChild(this.querySelector('.description').cloneNode(true));
-		this.style.backgroundColor = 'rgba(0,0,0,0.05)';
-	});
-}
+var cards, curves = {};
 
 curves.meta = {
 	parabola: {
@@ -310,6 +177,152 @@ curves.meta = {
 	}
 };
 
+curves.Card = function(options) {
+	options = options || {};
+	this.minX = options.minX || -10;
+	this.minY = options.minY || -10;
+	this.maxX = options.maxX || 10;
+	this.maxY = options.maxY || 10;
+	this.rangeX = this.maxX - this.minX;
+	this.rangeY = this.maxY - this.minY;
+	this.iteration = this.rangeX / (options.iteration || 10000);
+	this.width = options.width || 1000;
+	this.height = options.height || 1000;
+	this.centerX = Math.round(Math.abs(this.minX / this.rangeX) * this.width);
+	this.centerY = Math.round(Math.abs(this.minY / this.rangeY) * this.height);
+	this.pi = 3.14159265358979323;
+	this.thetamax = 6 * this.pi;
+	this.thetastep = 0.01;
+	this.cachedCanvas = (function(t){
+		var c = document.createElement('canvas');
+		c.width = t.width;
+		c.height = t.height;
+		var ctx = c.getContext('2d');
+		ctx.beginPath();
+		ctx.moveTo(0, t.centerY);
+		ctx.lineTo(t.width, t.centerY);
+		ctx.moveTo(t.centerX, 0);
+		ctx.lineTo(t.centerX, t.height);
+		ctx.strokeStyle = '#aaa';
+		ctx.lineWidth = 2;
+		ctx.stroke();
+		return c;
+	}(this));
+	
+	(function(c){
+		var t = document.getElementById('tiles');
+		var frag = document.createDocumentFragment();
+		Object.keys(c).forEach(function(k){
+			var p = document.createElement('div');
+			p.textContent = c[k].title;
+			p.className = 'parent';
+			p.setAttribute('id', k);
+			frag.appendChild(p);
+		});
+		t.appendChild(frag);
+		t.childNodes.forEach(function(n){
+			var nc = n;
+			nc.addEventListener('click', function(e){
+				document.querySelectorAll('.parent').forEach(function(e){e.style.backgroundColor = '';});
+				this.style.backgroundColor = 'rgba(0,0,0,0.05)';
+				cards.create(this.id);
+			});
+		});
+	}(curves.meta));
+}
+
+curves.Card.prototype.parametric = function(point, ctx) {
+	var x,y,xi,yi,tos,los,started = false;
+	ctx.beginPath();
+	for (var s = this.minX; s <= this.maxX; s += this.iteration) {
+		var points = point(s);
+		x = points.x;
+		y = points.y;
+		xi = (x-this.minX)/this.rangeX*this.width;
+		yi = (this.maxY-y)/this.rangeY*this.height;
+		if(!started) { started = true; ctx.moveTo(xi,yi); }
+		tos = (xi>0 && xi<this.width && yi>0 && yi<this.height);
+		if(los || tos) {
+			ctx.lineTo(xi,yi);
+		} else {
+			ctx.moveTo(xi,yi);
+		}
+		los=tos;
+	}
+	ctx.shadowColor = ctx.strokeStyle = 'green';
+	ctx.stroke();
+}
+
+curves.Card.prototype.polar = function(radius, ctx) {
+	var r,x,y,xi,yi,tos,los,started=false;
+	ctx.beginPath();
+	for (var theta = 0; theta <= this.thetamax; theta += this.thetastep) {
+		r = radius(theta);
+		x = r.x;
+		y = r.y;
+		xi = (x-this.minX)/this.rangeX*this.width;
+		yi = (this.maxY-y)/this.rangeY*this.height;
+		if(!started) { started = true; ctx.moveTo(xi,yi); }
+		tos = (xi>0 && xi<this.width && yi>0 && yi<this.height);
+		if(los || tos) {
+			ctx.lineTo(xi,yi);
+		} else {
+			ctx.moveTo(xi,yi);
+		}
+		los=tos;
+	}
+	ctx.shadowColor = ctx.strokeStyle = 'red';
+	ctx.stroke();
+}
+
+curves.Card.prototype.generateCanvas = function() {
+	var c = document.createElement('canvas');
+	c.width = this.width;
+	c.height = this.height;
+	var ctx = c.getContext('2d');
+	ctx.drawImage(this.cachedCanvas, 0, 0);
+	ctx.lineCap = 'round';
+	ctx.lineJoin = 'round';
+	ctx.shadowBlur = 1;
+	ctx.lineWidth = 2;
+	return c;
+}
+
+curves.Card.prototype.create = function(name) {
+	if(!curves.meta[name]) {
+		console.error('unknown curve: ' + name);
+		return;
+	}
+
+	var c = this.generateCanvas();
+	var ctx = c.getContext('2d');
+	switch (curves.meta[name].type) {
+		case 'parametric':
+			this.parametric(curves.meta[name].draw, ctx);
+			break;
+		case 'polar':
+			this.polar(curves.meta[name].draw, ctx);
+			break;
+		default:
+			console.log('unknown function type: ' + curves.meta[name].type);
+	}
+
+	var d = document.createElement('div');
+	d.className = 'canvas';
+	d.appendChild(c);
+	
+	var show = document.getElementById('show');
+	var cd = show.querySelector('.canvas');
+	if(cd) {
+		cd.style.transform = 'translateX(120%)';
+		window.getComputedStyle(cd).opacity;
+	}
+	show.innerHTML = '';
+	show.appendChild(d);
+	window.getComputedStyle(d).transform;
+	d.style.transform = 'translateX(0)';
+}
+
 /*
 curves.meta.test = {
 	type: "parametric",
@@ -322,12 +335,7 @@ curves.meta.test = {
 }
 */
 
-var cl = Object.keys(curves.meta),
-	cards = new curves.Card();
-	
 window.onload = function() {
-	for(var i=0,l=cl.length;i<l;i++){
-		cards.create(cl[i]);
-	}	
+	cards = new curves.Card();
 }
 
