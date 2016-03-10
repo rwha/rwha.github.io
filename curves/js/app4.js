@@ -315,7 +315,7 @@ curves.Card.prototype.create = function(name) {
 	var cd = show.querySelector('.canvas');
 	if(cd) {
 		cd.style.transform = 'translateX(120%)';
-		window.getComputedStyle(cd).opacity;
+		window.getComputedStyle(cd).transform;
 	}
 	show.innerHTML = '';
 	show.appendChild(d);

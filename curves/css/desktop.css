@@ -6,6 +6,7 @@ body {
 	font-family: sans-serif;
 	background-color: rgba(0,0,0,0.1);
 	margin: 0;
+	overflow: hidden;
 }
 
 
@@ -15,6 +16,7 @@ body {
 
 #tiles {
 	background-color: #FFF;
+	position: relative;
 	display: block;
 	max-width: 440px;
 	width: 30vw;
@@ -22,15 +24,14 @@ body {
 	float: left;
 	overflow-y: auto;
 	box-shadow: 0 0 6px 3px rgba(0,0,0,0.16), 0 0 6px 3px rgba(0,0,0,0.23);
+	z-index: 10;
 }
 
 #tiles .parent {
-	position: relative;
 	font-size: 1em;
 	line-height: 2em;
 	padding: 5px;
 	padding-left: 24px;
-	z-index: 3;
 	border-bottom: thin solid rgba(0,0,0,0.1);
 	cursor: pointer;
 }
@@ -48,16 +49,19 @@ body {
 #tiles::-webkit-scrollbar-thumb {
 	background: rgba(0,0,0,0.26);
 }
+
 #show {
-	display: inline-block;
-	height: 100%;
-	width: calc(70vw - 40px);
-	position: absolute;
+	/*display: inline-block;*/
+	height: 100vh;
+	/*width: calc(70vw - 40px);*/
 	padding-left: 20px;
 	padding-right: 20px;
 	overflow-y: auto;
-	
+	overflow-x: hidden;
+	position: relative;
+	z-index: 1;
 }
+
 #show::-webkit-scrollbar {
 	height: 4px;
 	width: 4px;
@@ -69,13 +73,10 @@ body {
 
 #show .canvas {
 	height: calc(70vw - 40px);
-	position: relative;
 	margin: 10px auto;
 	background-color: white;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	overflow: hidden;
-	opacity: 1;
-	transition: opacity 0.3s;
 	transition: transform 0.2s ease-out;
 	transform: translateX(-120%);
 }
