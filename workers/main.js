@@ -6,7 +6,6 @@ worker.onmessage = function(e){
 	var returned = e.data;
 	
 	if(returned.command === 'list') {
-		console.log(returned.result);
 		var t = document.getElementById('tiles');
 		var frag = document.createDocumentFragment();
 		Object.keys(returned.result).forEach(function(k){
@@ -41,9 +40,9 @@ worker.onmessage = function(e){
 		ctx.lineJoin = 'round';
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = ctx.strokeStyle = 'red';
-		ctx.moveTo(pathData[0]);
+		ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
-			ctx.lineTo(v);
+			ctx.lineTo(v[0], v[1]);
 		});
 		ctx.stroke();
 	} else {
