@@ -1,0 +1,97 @@
+:root { 
+	--main-height: 70vh; 
+}
+
+body {
+	font-family: sans-serif;
+	background-color: rgba(0,0,0,0.1);
+	margin: 0;
+	overflow: hidden;
+}
+
+
+.math {
+	font-weight: bold;
+}
+
+#tiles {
+	background-color: #FFF;
+	position: relative;
+	display: block;
+	max-width: 440px;
+	width: 30vw;
+	height: 100vh;
+	float: left;
+	overflow-y: auto;
+	box-shadow: 0 0 6px 3px rgba(0,0,0,0.16), 0 0 6px 3px rgba(0,0,0,0.23);
+	z-index: 10;
+}
+
+.parent, .selected {
+	font-size: 1em;
+	line-height: 2em;
+	padding: 5px;
+	padding-left: 24px;
+	border-bottom: thin solid rgba(0,0,0,0.1);
+	cursor: pointer;
+}
+
+.selected {
+	background-color: rgba(0,0,0,0.05);
+}
+
+#tiles .parent:hover {
+	background-color: rgba(0,0,0,0.05);
+}
+
+
+#tiles::-webkit-scrollbar {
+	height: 4px;
+	width: 4px;
+}
+		
+#tiles::-webkit-scrollbar-thumb {
+	background: rgba(0,0,0,0.26);
+}
+
+#show {
+	height: 100vh;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: relative;
+	z-index: 1;
+}
+
+#show::-webkit-scrollbar {
+	height: 4px;
+	width: 4px;
+}
+		
+#show::-webkit-scrollbar-thumb {
+	background: rgba(0,0,0,0.26);
+}
+
+#show .canvas {
+	height: calc(70vw - 40px);
+	max-height: 1000px;
+	max-width: 1000px;
+	margin: 10px auto;
+	background-color: white;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	overflow: hidden;
+}
+
+#show .canvas canvas {
+	position: absolute;
+	height: calc(70vw - 40px);
+	/*opacity: 1;
+	transition: opacity 0.5s;
+	max-height: 1000px;
+	/*transition: transform 0.2s ease-out;
+	transform: translateX(-120%);
+	opacity: 1;
+	transition: opacity 0.5s;*/
+}
+
