@@ -213,8 +213,8 @@ function generatePath(curve) {
 			var points = meta.draw(s);
 			x = points.x;
 			y = points.y;
-			xi = (x+10)/20000;
-			yi = (10-y)/20000;
+			xi = ((x+10)/20)*1000;
+			yi = ((10-y)/20)*1000;
 			//if(!started) { started = true; path.moveTo(xi,yi); }
 			//tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
 			//if(los || tos) {
@@ -235,8 +235,8 @@ function generatePath(curve) {
 			r = meta.draw(theta);
 			x = r.x;
 			y = r.y;
-			xi = (x+10)/20000;
-			yi = (10-y)/20000;
+			xi = ((x+10)/20)*1000;
+			yi = ((10-y)/20)*1000;
 			//if(!started) { started = true; path.moveTo(xi,yi); }
 			//tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
 			//if(los || tos) {
