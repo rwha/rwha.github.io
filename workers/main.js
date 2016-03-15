@@ -26,8 +26,7 @@ worker.onmessage = function(e){
 					s.className = 'parent'; 
 				}
 				this.className = 'selected';
-				//var out = canvas.animate([{opacity: 1},{opacity: 0}], {duration: 200, fill: 'forwards'});
-				//out.onfinish = cards.draw;
+				worker.postMessage({command: 'draw', curve: this.id});
 			});
 		});	
 	} else if (returned.command === 'draw') {
