@@ -229,7 +229,7 @@ function generatePath(curve) {
 	function polar(meta) {
 		var r,x,y,xi,yi,tos,los,started=false;
 		var path = new Path2D();
-		for (var theta = 0; theta <= (Math.PI * 6; theta += 0.01) {
+		for (var theta = 0; theta <= (Math.PI * 6); theta += 0.01) {
 			r = meta.draw(theta);
 			x = r.x;
 			y = r.y;
