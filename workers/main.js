@@ -3,7 +3,7 @@
 var worker = new Worker('worker.js');
 
 worker.onmessage = function(e){
-	returned = e.data;
+	var returned = e.data;
 	
 	if(returned.command === 'list') {
 		console.log(returned.result);
