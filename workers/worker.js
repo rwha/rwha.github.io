@@ -245,7 +245,7 @@ function generatePath(curve) {
 			//	path.moveTo(xi,yi);
 			//}
 			//los=tos;
-			path.push([xy,yi]);
+			path.push([xi,yi]);
 		}
 		return path;
 	}
