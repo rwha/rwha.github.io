@@ -44,7 +44,7 @@ worker.onmessage = function(e){
 		ctx.moveTo(pathData[0]);
 		pathData.forEach(function(v){
 			ctx.lineTo(v);
-		}
+		});
 		ctx.stroke();
 	} else {
 		console.log(returned);
