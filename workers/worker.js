@@ -275,7 +275,9 @@ function worker(cmd){
 		case 'list':
 			response = (function(c){
 				var o = {};
-				Object.keys(c).forEach(function(k){
+				var keys = Object.keys(c);
+				keys.sort();
+				keys.forEach(function(k){
 					o[k] = c[k].title;
 				});
 				return o;
@@ -295,8 +297,6 @@ function worker(cmd){
 }
 
 onmessage = function(e) {
-	var cmd = e.data;
-	console.log(cmd);
-	worker(cmd);
+	worker(e.data);
 }
 

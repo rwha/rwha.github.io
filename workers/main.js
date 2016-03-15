@@ -30,7 +30,22 @@ worker.onmessage = function(e){
 			});
 		});	
 	} else if (returned.command === 'draw') {
-		console.log(returned.result);
+		//console.log(returned.result);
+		var pathData = returned.result;
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		ctx.clearRect(0,0,1000,1000);
+		ctx.beginPath();
+		ctx.lineWidth = 2;
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+		ctx.shadowBlur = 1;
+		ctx.shadowColor = ctx.strokeStyle = 'red';
+		ctx.moveTo(pathData[0]);
+		pathData.forEach(function(v){
+			ctx.lineTo(v);
+		}
+		ctx.stroke();
 	} else {
 		console.log(returned);
 	}
