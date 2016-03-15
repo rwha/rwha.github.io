@@ -11,7 +11,7 @@ worker.onmessage = function(e){
 		var frag = document.createDocumentFragment();
 		Object.keys(returned.result).forEach(function(k){
 			var p = document.createElement('div');
-			p.textContent = returned.result[k].title;
+			p.textContent = returned.result[k];
 			p.className = 'parent';
 			p.setAttribute('id', k);
 			frag.appendChild(p);
