@@ -29,7 +29,7 @@ worker.onmessage = function(e){
 			});
 		});	
 	} else if (returned.command === 'draw') {
-		console.log(returned);
+		//console.log(returned);
 		var pathData = returned.result;
 		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
@@ -42,8 +42,14 @@ worker.onmessage = function(e){
 		ctx.shadowColor = ctx.strokeStyle = 'red';
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
-			//console.log(v);
-			ctx.lineTo(v[0], v[1]);
+			var t, s;
+			var t = (v[0]>0 && v[0]<1000 && v[1]>0 && v[1]<1000);
+			if(s || t) {
+				ctx.lineTo(v[0], v[1]);
+			} else {
+				ctx.moveTo(v[0], v[1]);
+			}
+			s=t;
 		});
 		ctx.stroke();
 	} else {
