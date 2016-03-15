@@ -206,7 +206,8 @@ function generatePath(curve) {
 
 	function parametric(meta) {
 		var x,y,xi,yi,tos,los,started = false;
-		var path = new Path2D();
+		//var path = new Path2D();
+		var path = [];
 		var max = meta.max || 10;
 		for (var s = -10; s <= max; s += 0.01) {
 			var points = meta.draw(s);
@@ -214,35 +215,37 @@ function generatePath(curve) {
 			y = points.y;
 			xi = (x+10)/20000;
 			yi = (10-y)/20000;
-			if(!started) { started = true; path.moveTo(xi,yi); }
-			tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
-			if(los || tos) {
-				path.lineTo(xi,yi);
-			} else {
-				path.moveTo(xi,yi);
-			}
-			los=tos;
+			//if(!started) { started = true; path.moveTo(xi,yi); }
+			//tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
+			//if(los || tos) {
+			//	path.push([xi, yi]);
+			//} else {
+				path.push([xi,yi]);
+			//}
+			//los=tos;
 		}
 		return path;
 	}
 
 	function polar(meta) {
 		var r,x,y,xi,yi,tos,los,started=false;
-		var path = new Path2D();
+		//var path = new Path2D();
+		var path = []
 		for (var theta = 0; theta <= (Math.PI * 6); theta += 0.01) {
 			r = meta.draw(theta);
 			x = r.x;
 			y = r.y;
 			xi = (x+10)/20000;
 			yi = (10-y)/20000;
-			if(!started) { started = true; path.moveTo(xi,yi); }
-			tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
-			if(los || tos) {
-				path.lineTo(xi,yi);
-			} else {
-				path.moveTo(xi,yi);
-			}
-			los=tos;
+			//if(!started) { started = true; path.moveTo(xi,yi); }
+			//tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
+			//if(los || tos) {
+			//	path.lineTo(xi,yi);
+			//} else {
+			//	path.moveTo(xi,yi);
+			//}
+			//los=tos;
+			path.push([xy,yi]);
 		}
 		return path;
 	}
