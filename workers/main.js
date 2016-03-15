@@ -29,7 +29,7 @@ worker.onmessage = function(e){
 			});
 		});	
 	} else if (returned.command === 'draw') {
-		//console.log(returned.result);
+		console.log(returned);
 		var pathData = returned.result;
 		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
@@ -42,6 +42,7 @@ worker.onmessage = function(e){
 		ctx.shadowColor = ctx.strokeStyle = 'red';
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
+			//console.log(v);
 			ctx.lineTo(v[0], v[1]);
 		});
 		ctx.stroke();

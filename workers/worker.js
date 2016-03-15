@@ -267,7 +267,7 @@ function generatePath(curve) {
 
 /* 
 	e.g.	{ command: 'list' }	=>	{ command: 'list', result: {} }
-	or:		{ command: 'draw', curve: 'parabola' }	=>	{ command: 'draw', result: [Path2D Object] }
+	or:		{ command: 'draw', curve: 'parabola' }	=>	{ command: 'draw', result: [[0,0],[0,0]] }
 */
 function worker(cmd){
 	var response;
