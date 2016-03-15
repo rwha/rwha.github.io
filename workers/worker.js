@@ -288,7 +288,7 @@ function worker(cmd){
 		default:
 			response = 'unknown command';
 	}
-	postMessage({command: cmd.command: result: response});
+	postMessage({command: cmd.command, result: response});
 }
 
 onmessage = function(e) {
