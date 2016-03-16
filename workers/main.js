@@ -3,7 +3,6 @@
 var worker = new Worker('worker.js');
 
 var axis = new Path2D();
-axis.beginPath();
 axis.moveTo(500,0);
 axis.lineTo(500,1000);
 axis.moveTo(0,500);
