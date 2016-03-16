@@ -4,6 +4,7 @@ var worker = new Worker('worker.js');
 
 worker.onmessage = function(e){
 	var returned = e.data;
+	var canvas = document.getElementById('canvas');
 
 	if(returned.command === 'list') {
 		var t = document.getElementById('tiles');
@@ -31,7 +32,6 @@ worker.onmessage = function(e){
 		});	
 	} else if (returned.command === 'draw') {
 		var pathData = returned.result;
-		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
 		ctx.lineWidth = 2;
 		ctx.lineCap = 'round';
