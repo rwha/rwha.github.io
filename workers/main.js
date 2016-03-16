@@ -26,7 +26,7 @@ worker.onmessage = function(e){
 					s.className = 'parent'; 
 				}
 				this.className = 'selected';
-				canvas.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 500, fill: 'forwards'});
+				canvas.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 200, fill: 'forwards'});
 				worker.postMessage({command: 'draw', curve: this.id});
 			});
 		});	
@@ -36,9 +36,8 @@ worker.onmessage = function(e){
 		ctx.lineWidth = 2;
 		ctx.lineCap = 'round';
 		ctx.lineJoin = 'round';
-		ctx.strokeStyle = '#aaa';
+		ctx.shadowColor = ctx.strokeStyle = '#aaa';
 		ctx.shadowBlur = 0;
-		ctx.restore();
 		ctx.clearRect(0,0,1000,1000);
 		ctx.beginPath();
 		ctx.moveTo(500,0);
@@ -46,8 +45,6 @@ worker.onmessage = function(e){
 		ctx.moveTo(0,500);
 		ctx.lineTo(1000,500);
 		ctx.stroke();
-		ctx.shadowBlur = 1;
-		ctx.shadowColor = ctx.strokeStyle = 'red';
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
 			var t, s;
@@ -59,8 +56,10 @@ worker.onmessage = function(e){
 			}
 			s=t;
 		});
+		ctx.shadowBlur = 1;
+		ctx.shadowColor = ctx.strokeStyle = 'red';
 		ctx.stroke();
-		canvas.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 500, fill: 'forwards'});
+		canvas.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 200, fill: 'forwards'});
 	} else {
 		console.log(returned);
 	}
