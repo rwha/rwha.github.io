@@ -4,7 +4,7 @@ var worker = new Worker('worker.js');
 
 worker.onmessage = function(e){
 	var returned = e.data;
-	var canvas = document.getElementById('canvas');
+	var can = document.getElementById('can');
 
 	if(returned.command === 'list') {
 		var t = document.getElementById('tiles');
@@ -26,25 +26,27 @@ worker.onmessage = function(e){
 					s.className = 'parent'; 
 				}
 				this.className = 'selected';
-				canvas.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 200, fill: 'forwards'});
+				can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 200, fill: 'forwards'});
 				worker.postMessage({command: 'draw', curve: this.id});
 			});
 		});	
 	} else if (returned.command === 'draw') {
 		var pathData = returned.result;
+		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
-		ctx.lineWidth = 2;
-		ctx.lineCap = 'round';
-		ctx.lineJoin = 'round';
-		ctx.shadowColor = ctx.strokeStyle = '#aaa';
-		ctx.shadowBlur = 0;
 		ctx.clearRect(0,0,1000,1000);
 		ctx.beginPath();
 		ctx.moveTo(500,0);
 		ctx.lineTo(500,1000);
 		ctx.moveTo(0,500);
 		ctx.lineTo(1000,500);
+		ctx.lineWidth = 2;
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+		ctx.shadowColor = ctx.strokeStyle = '#aaa';
+		ctx.shadowBlur = 0;
 		ctx.stroke();
+		ctx.beginPath();
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
 			var t, s;
@@ -59,7 +61,7 @@ worker.onmessage = function(e){
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = ctx.strokeStyle = 'red';
 		ctx.stroke();
-		canvas.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 200, fill: 'forwards'});
+		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 200, fill: 'forwards'});
 	} else {
 		console.log(returned);
 	}
