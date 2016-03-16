@@ -64,7 +64,7 @@ var curves = {
 	cochleoid: {
 		type: "polar",
 		title: "Cochleoid",
-		max: 10,
+		max: 6,
 		draw: function(theta) {
 			var a = 9;
 			var r = a * Math.sin(theta)/theta;
@@ -74,7 +74,6 @@ var curves = {
 	conchoid: {
 		type: "polar",
 		title: "Conchoid",
-		max: 10,
 		draw: function(theta) {
 			var a = 5;
 			var b = 2;
