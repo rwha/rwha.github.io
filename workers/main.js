@@ -57,10 +57,8 @@ worker.onmessage = function(e){
 		ctx.lineWidth = 2;
 		ctx.stroke(axis);
 		ctx.lineWidth = 1;
-		//ctx.shadowColor = ctx.strokeStyle = '#F3F3F3';
 		ctx.stroke(grid);
 		ctx.beginPath();
-		//ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
 			var t, s;
 			var t = (v[0]>0 && v[0]<1000 && v[1]>0 && v[1]<1000);

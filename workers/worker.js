@@ -180,6 +180,16 @@ var curves = {
 			return {x: xi, y: yi};
 		}
 	},
+	newtonsParapola: {
+		type: "parametric",
+		title: "Newton's Parabola",
+		draw: function(t) {
+			var a = 1, b = 2, c = -3;
+			var xi = (t * t * t) - (2 * b * t * t) + (c * t);
+			var yi = xi * xi;
+			return {x: xi, y: yi};
+		}
+	},
 };
 
 function generatePath(curve) {
