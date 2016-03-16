@@ -73,6 +73,7 @@ worker.onmessage = function(e){
 		});
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = ctx.strokeStyle = 'red';
+		ctx.lineWidth = 2;
 		ctx.stroke();
 		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	} else {

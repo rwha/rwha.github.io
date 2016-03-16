@@ -64,6 +64,7 @@ var curves = {
 	cochleoid: {
 		type: "polar",
 		title: "Cochleoid",
+		max: 10,
 		draw: function(theta) {
 			var a = 9;
 			var r = a * Math.sin(theta)/theta;
@@ -73,6 +74,7 @@ var curves = {
 	conchoid: {
 		type: "polar",
 		title: "Conchoid",
+		max: 10,
 		draw: function(theta) {
 			var a = 5;
 			var b = 2;
@@ -205,7 +207,7 @@ function generatePath(curve) {
 	function polar(meta) {
 		var r,x,y,xi,yi,tos,los,started=false;
 		var path = []
-		for (var theta = 0; theta <= (Math.PI * 6); theta += 0.01) {
+		for (var theta = 0; theta <= (Math.PI * (meta.max || 6)); theta += 0.01) {
 			r = meta.draw(theta);
 			x = r.x;
 			y = r.y;
