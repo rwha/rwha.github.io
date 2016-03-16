@@ -57,6 +57,7 @@ worker.onmessage = function(e){
 		ctx.lineWidth = 2;
 		ctx.stroke(axis);
 		ctx.lineWidth = 1;
+		ctx.shadowColor = ctx.strokeStyle = '#F3F3F3';
 		ctx.stroke(grid);
 		ctx.beginPath();
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
