@@ -4,13 +4,6 @@ var worker = new Worker('worker.js');
 
 worker.onmessage = function(e){
 	var returned = e.data;
-	var canvas = document.getElementById('canvas');
-	var ctx = canvas.getContext('2d');
-	ctx.lineWidth = 2;
-	ctx.lineCap = 'round';
-	ctx.lineJoin = 'round';
-	ctx.strokeStyle = '#aaa';
-	ctx.save();
 
 	if(returned.command === 'list') {
 		var t = document.getElementById('tiles');
@@ -38,13 +31,20 @@ worker.onmessage = function(e){
 		});	
 	} else if (returned.command === 'draw') {
 		var pathData = returned.result;
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		ctx.lineWidth = 2;
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+		ctx.strokeStyle = '#aaa';
+		ctx.shadowBlur = 0;
 		ctx.restore();
 		ctx.clearRect(0,0,1000,1000);
 		ctx.beginPath();
 		ctx.moveTo(500,0);
 		ctx.lineTo(500,1000);
 		ctx.moveTo(0,500);
-		ctx.lineTo(0,1000);
+		ctx.lineTo(1000,500);
 		ctx.stroke();
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = ctx.strokeStyle = 'red';
