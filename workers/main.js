@@ -2,6 +2,22 @@
 
 var worker = new Worker('worker.js');
 
+var axis = new Path2D();
+axis.beginPath();
+axis.moveTo(500,0);
+axis.lineTo(500,1000);
+axis.moveTo(0,500);
+axis.lineTo(1000,500);
+
+var grid = new Path2D();
+for (var i=10;i<=990;i+=10) {
+	grid.moveTo(i,0);
+	grid.lineTo(i,1000);
+	grid.moveTo(0,i);
+	grid.lineTo(1000,i);
+}
+
+
 worker.onmessage = function(e){
 	var returned = e.data;
 	var can = document.getElementById('can');
@@ -26,7 +42,7 @@ worker.onmessage = function(e){
 					s.className = 'parent'; 
 				}
 				this.className = 'selected';
-				can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 200, fill: 'forwards'});
+				can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
 				worker.postMessage({command: 'draw', curve: this.id});
 			});
 		});	
@@ -35,17 +51,14 @@ worker.onmessage = function(e){
 		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
 		ctx.clearRect(0,0,1000,1000);
-		ctx.beginPath();
-		ctx.moveTo(500,0);
-		ctx.lineTo(500,1000);
-		ctx.moveTo(0,500);
-		ctx.lineTo(1000,500);
-		ctx.lineWidth = 2;
 		ctx.lineCap = 'round';
 		ctx.lineJoin = 'round';
 		ctx.shadowColor = ctx.strokeStyle = '#aaa';
 		ctx.shadowBlur = 0;
-		ctx.stroke();
+		ctx.lineWidth = 2;
+		ctx.stroke(axis);
+		ctx.lineWidth = 1;
+		ctx.stroke(grid);
 		ctx.beginPath();
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
 		pathData.forEach(function(v){
@@ -61,7 +74,7 @@ worker.onmessage = function(e){
 		ctx.shadowBlur = 1;
 		ctx.shadowColor = ctx.strokeStyle = 'red';
 		ctx.stroke();
-		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 200, fill: 'forwards'});
+		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	} else {
 		console.log(returned);
 	}
