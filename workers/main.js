@@ -9,7 +9,7 @@ axis.moveTo(0,500);
 axis.lineTo(1000,500);
 
 var grid = new Path2D();
-for (var i=10;i<=990;i+=20) {
+for (var i=20;i<=980;i+=20) {
 	grid.moveTo(i,0);
 	grid.lineTo(i,1000);
 	grid.moveTo(0,i);
@@ -57,7 +57,7 @@ worker.onmessage = function(e){
 		ctx.lineWidth = 2;
 		ctx.stroke(axis);
 		ctx.lineWidth = 1;
-		ctx.shadowColor = ctx.strokeStyle = '#F3F3F3';
+		//ctx.shadowColor = ctx.strokeStyle = '#F3F3F3';
 		ctx.stroke(grid);
 		ctx.beginPath();
 		ctx.moveTo(pathData[0][0], pathData[0][1]);
