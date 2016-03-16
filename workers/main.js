@@ -9,7 +9,7 @@ axis.moveTo(0,500);
 axis.lineTo(1000,500);
 
 var grid = new Path2D();
-for (var i=20;i<=980;i+=20) {
+for (var i=50;i<=950;i+=50) {
 	grid.moveTo(i,0);
 	grid.lineTo(i,1000);
 	grid.moveTo(0,i);
