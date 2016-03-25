@@ -1,0 +1,15 @@
+body {
+	font-family: sans-serif;	
+}
+
+#container {
+	width: 80vw;
+	position: relative;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+
+#container canvas {
+	width: 100%;
+	padding-bottom: 40px;
+}

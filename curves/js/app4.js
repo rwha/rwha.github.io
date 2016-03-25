@@ -166,49 +166,89 @@ curves.meta = {
 		type: "parametric",
 		title: "Hypocycloid",
 		description: "no description available",
-		drawn: false,
 		draw: function(s) {
-			var a = 5;
-			var b = 3;
+			var a = 9;
+			var b = 5.4;
 			var xi = (a-b) * Math.cos(s) + b * Math.cos((a/b-1)*s);
 			var yi = (a-b) * Math.sin(s) - b * Math.sin((a/b-1)*s)
 			return {x: xi, y: yi};
 		}
-	}
+	},
+	hypotrochoid: {
+		type: "parametric",
+		title: "Hypotrochoid",
+		description: "NA",
+		max: 47,
+		draw: function(t) {
+			var a = 7, b = 9, c = 3;
+			var xi = (a - b) * Math.cos(t) + c * Math.cos((a/b - 1) * t);
+			var yi = (a - b) * Math.sin(t) - c * Math.sin((a/b - 1) * t);
+			return {x: xi, y: yi};
+		}
+	},
+	epicycloid: {
+		type: "parametric",
+		title: "Epicycloid",
+		description: "NA",
+		max: 20,
+		draw: function(t) {
+			var a = 4.5, b = 2;
+			var xi = (a + b) * Math.cos(t) - b * Math.cos((a/b + 1) * t);
+			var yi = (a + b) * Math.sin(t) - b * Math.sin((a/b + 1) * t);
+			return {x: xi, y: yi};
+		}
+	},
+	epitrochoid: {
+		type: "parametric",
+		title: "Epitrochoid",
+		description: "NA",
+		max: 20,
+		draw: function(t) {
+			var a = 4.5, b = 2, c = 3;
+			var xi = (a + b) * Math.cos(t) - c * Math.cos((a/b + 1) * t);
+			var yi = (a + b) * Math.sin(t) - c * Math.sin((a/b + 1) * t);
+			return {x: xi, y: yi};
+		}
+	},
+	tridentOfNewton: {
+		type: "parametric",
+		title: "Trident of Newton",
+		//max: 20,
+		draw: function(t) {
+			//console.log('newton');
+			//var s = t; // - 3;
+			var a = 0.1, b = 0.2, c = 0.3, d = 0.4;
+			//var xi = s * (s * s - 2 * b * s + c);
+			var yi = a * t * t * t + b * t * t  + c * t + d;
+			return {x: t, y: yi*t};
+		}
+	},	
+	
+	
 };
 
-curves.Card = function(options) {
-	options = options || {};
-	this.minX = options.minX || -10;
-	this.minY = options.minY || -10;
-	this.maxX = options.maxX || 10;
-	this.maxY = options.maxY || 10;
-	this.rangeX = this.maxX - this.minX;
-	this.rangeY = this.maxY - this.minY;
-	this.iteration = this.rangeX / (options.iteration || 10000);
-	this.width = options.width || 1000;
-	this.height = options.height || 1000;
-	this.centerX = Math.round(Math.abs(this.minX / this.rangeX) * this.width);
-	this.centerY = Math.round(Math.abs(this.minY / this.rangeY) * this.height);
+curves.Card = function() {
+	this.minX = -10;
+	this.minY = -10;
+	this.maxX = 10;
+	this.maxY = 10;
+	this.rangeX = 20;
+	this.rangeY = 20;
+	this.iteration = 0.01;
+	this.width = 1000;
+	this.height = 1000;
+	this.centerX = 500;
+	this.centerY = 500;
 	this.pi = 3.14159265358979323;
 	this.thetamax = 6 * this.pi;
 	this.thetastep = 0.01;
-	this.cachedCanvas = (function(t){
-		var c = document.createElement('canvas');
-		c.width = t.width;
-		c.height = t.height;
-		var ctx = c.getContext('2d');
-		ctx.beginPath();
-		ctx.moveTo(0, t.centerY);
-		ctx.lineTo(t.width, t.centerY);
-		ctx.moveTo(t.centerX, 0);
-		ctx.lineTo(t.centerX, t.height);
-		ctx.strokeStyle = '#aaa';
-		ctx.lineWidth = 2;
-		ctx.stroke();
-		return c;
+	this.canvas = (function(t){
+		var cvs = document.createElement('canvas');
+		cvs.height = t.height;
+		cvs.width = t.width;
+		document.getElementById('can').appendChild(cvs);
+		return cvs;
 	}(this));
-	
 	(function(c){
 		var t = document.getElementById('tiles');
 		var frag = document.createDocumentFragment();
@@ -220,26 +260,32 @@ curves.Card = function(options) {
 			frag.appendChild(p);
 		});
 		t.appendChild(frag);
-		t.childNodes.forEach(function(n){
+		Array.prototype.forEach.call(t.childNodes, function(n){
 			var nc = n;
 			nc.addEventListener('click', function(e){
-				document.querySelectorAll('.parent').forEach(function(e){e.style.backgroundColor = '';});
-				this.style.backgroundColor = 'rgba(0,0,0,0.05)';
-				cards.create(this.id);
+				e.stopPropagation();
+				var s = document.querySelector('.selected');
+				if(s) {
+					s.className = 'parent'; 
+				}
+				this.className = 'selected'; 
+				cards.draw(this.id);
 			});
 		});
 	}(curves.meta));
 }
 
-curves.Card.prototype.parametric = function(point, ctx) {
+curves.Card.prototype.parametric = function(point) {
 	var x,y,xi,yi,tos,los,started = false;
+	var ctx = this.canvas.getContext('2d');
+	var max = point.max || this.maxX;
 	ctx.beginPath();
-	for (var s = this.minX; s <= this.maxX; s += this.iteration) {
-		var points = point(s);
+	for (var s = this.minX; s <= max; s += this.iteration) {
+		var points = point.draw(s);
 		x = points.x;
 		y = points.y;
-		xi = (x-this.minX)/this.rangeX*this.width;
-		yi = (this.maxY-y)/this.rangeY*this.height;
+		xi = ((x+10)/20)*1000;
+		yi = ((10-y)/20)*1000;
 		if(!started) { started = true; ctx.moveTo(xi,yi); }
 		tos = (xi>0 && xi<this.width && yi>0 && yi<this.height);
 		if(los || tos) {
@@ -253,15 +299,16 @@ curves.Card.prototype.parametric = function(point, ctx) {
 	ctx.stroke();
 }
 
-curves.Card.prototype.polar = function(radius, ctx) {
+curves.Card.prototype.polar = function(radius) {
 	var r,x,y,xi,yi,tos,los,started=false;
+	var ctx = this.canvas.getContext('2d');
 	ctx.beginPath();
 	for (var theta = 0; theta <= this.thetamax; theta += this.thetastep) {
-		r = radius(theta);
+		r = radius.draw(theta);
 		x = r.x;
 		y = r.y;
-		xi = (x-this.minX)/this.rangeX*this.width;
-		yi = (this.maxY-y)/this.rangeY*this.height;
+		xi = ((x+10)/20)*1000;
+		yi = ((10-y)/20)*1000;
 		if(!started) { started = true; ctx.moveTo(xi,yi); }
 		tos = (xi>0 && xi<this.width && yi>0 && yi<this.height);
 		if(los || tos) {
@@ -275,65 +322,41 @@ curves.Card.prototype.polar = function(radius, ctx) {
 	ctx.stroke();
 }
 
-curves.Card.prototype.generateCanvas = function() {
-	var c = document.createElement('canvas');
-	c.width = this.width;
-	c.height = this.height;
-	var ctx = c.getContext('2d');
-	ctx.drawImage(this.cachedCanvas, 0, 0);
+curves.Card.prototype.resetCanvas = function() {
+	var ctx = this.canvas.getContext('2d');
+	ctx.clearRect(0,0,this.width,this.height);
+	ctx.beginPath();
+	ctx.moveTo(0, this.centerY);
+	ctx.lineTo(this.width, this.centerY);
+	ctx.moveTo(this.centerX, 0);
+	ctx.lineTo(this.centerX, this.height);
+	ctx.strokeStyle = '#aaa';
+	ctx.shadowBlur = 0;
+	ctx.lineWidth = 2;
 	ctx.lineCap = 'round';
 	ctx.lineJoin = 'round';
+	ctx.stroke();
 	ctx.shadowBlur = 1;
-	ctx.lineWidth = 2;
-	return c;
 }
 
-curves.Card.prototype.create = function(name) {
+curves.Card.prototype.draw = function(name) {
 	if(!curves.meta[name]) {
 		console.error('unknown curve: ' + name);
 		return;
 	}
-
-	var c = this.generateCanvas();
-	var ctx = c.getContext('2d');
+	this.resetCanvas();
 	switch (curves.meta[name].type) {
 		case 'parametric':
-			this.parametric(curves.meta[name].draw, ctx);
+			this.parametric(curves.meta[name]);
 			break;
 		case 'polar':
-			this.polar(curves.meta[name].draw, ctx);
+			this.polar(curves.meta[name]);
 			break;
 		default:
 			console.log('unknown function type: ' + curves.meta[name].type);
 	}
-
-	var d = document.createElement('div');
-	d.className = 'canvas';
-	d.appendChild(c);
 	
-	var show = document.getElementById('show');
-	var cd = show.querySelector('.canvas');
-	if(cd) {
-		cd.style.transform = 'translateX(120%)';
-		window.getComputedStyle(cd).transform;
-	}
-	show.innerHTML = '';
-	show.appendChild(d);
-	window.getComputedStyle(d).transform;
-	d.style.transform = 'translateX(0)';
 }
-
-/*
-curves.meta.test = {
-	type: "parametric",
-	title: "linear function",
-	description: "slope of one",
-	drawn: false,
-	draw: function(s) {
-		return {x: s, y: s};
-	}
-}
-*/
 
 window.onload = function() {
 	cards = new curves.Card();

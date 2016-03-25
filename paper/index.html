@@ -2,95 +2,67 @@
 <html>
 <head>
 	<title>paper</title>
-
-	<style>
-	body {
-		margin: 0 auto;
-		display: table;
-		font-family: sans-serif;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" media="screen" href="screen.css">
+	<link rel="stylesheet" type="text/css" media="print" href="print.css">
 	
 </head>
 <body>
-	<canvas id="canvas"></canvas>
+<div id="container"></div>
 <script>
-var width = 2550;
-var height = 3300;
-var c = document.getElementById('canvas');	
-var ctx = c.getContext('2d');
 
-c.width = width + 20;
-c.height = height;
+function createPolar(){
+	var c = document.createElement('canvas');
+	c.width = 1500;
+	c.height = 1500;
+	var ctx = c.getContext('2d');
+	ctx.strokeStyle = '#aaa';
+	var mx = Math.floor((c.width-20)/2);
+	var my = Math.floor((c.height-20)/2);
+	var rint = Math.floor((c.width-20)/16);
 
-var mx = Math.floor((c.width + 10)/2 - 5);
-var my = Math.floor(c.height/2);
-var rint = Math.floor(c.width/16);
-
-ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-
-for (var i=1; i<=48; i++) {
-	if (i % 4 === 0) {
-		ctx.beginPath();
-		ctx.moveTo(mx,my);
-		ctx.lineTo(mx+Math.cos(i*Math.PI/24)*mx, my-Math.sin(i*Math.PI/24)*mx);
-		ctx.lineWidth = 5;
-		ctx.stroke();
-		ctx.closePath();
-	} else {
-		ctx.beginPath();
-		ctx.moveTo(mx+Math.cos(i*Math.PI/24)*2*rint, my-Math.sin(i*Math.PI/24)*2*rint);
-		ctx.lineTo(mx+Math.cos(i*Math.PI/24)*mx, my-Math.sin(i*Math.PI/24)*mx);
-		ctx.lineWidth = 2;
-		ctx.stroke();
-		ctx.closePath();
+	for (var i=1; i<=48; i++) {
+		if (i % 4 === 0) {
+			ctx.beginPath();
+			ctx.moveTo(mx,my);
+			ctx.lineTo(mx+Math.cos(i*Math.PI/24)*mx, my-Math.sin(i*Math.PI/24)*mx);
+			ctx.lineWidth = 4;
+			ctx.stroke();
+			//ctx.closePath();
+		} else {
+			ctx.beginPath();
+			ctx.moveTo(mx+Math.cos(i*Math.PI/24)*2*rint, my-Math.sin(i*Math.PI/24)*2*rint);
+			ctx.lineTo(mx+Math.cos(i*Math.PI/24)*mx, my-Math.sin(i*Math.PI/24)*mx);
+			ctx.lineWidth = 2;
+			ctx.stroke();
+			//ctx.closePath();
+		}
+		if(i < 8) {
+			ctx.moveTo(mx,my);
+			ctx.beginPath();
+			ctx.arc(mx,my,rint*i,0,2*Math.PI);
+			ctx.lineWidth = 4;
+			ctx.stroke();
+			//ctx.closePath();
+		} else if (i === 8) {
+			ctx.moveTo(mx,my);
+			ctx.beginPath();
+			ctx.arc(mx,my,rint*i,0,2*Math.PI);
+			ctx.lineWidth = 8;
+			ctx.stroke();
+			//ctx.closePath();
+		}
 	}
-	if(i < 8) {
-		ctx.moveTo(mx,my);
-		ctx.beginPath();
-		ctx.arc(mx,my,rint*i,0,2*Math.PI);
-		ctx.lineWidth = 5;
-		ctx.stroke();
-		ctx.closePath();
-	} else if (i === 8) {
-		ctx.moveTo(mx,my);
-		ctx.beginPath();
-		ctx.arc(mx,my,rint*i,0,2*Math.PI);
-		ctx.lineWidth = 10;
-		ctx.stroke();
-		ctx.closePath();
-	}
+	return c;
 }
 
+//var c1 = createPolar();
+//var a = document.createElement('a');
+//a.download = new Date().getTime();
+//a.href = c1.toDataURL();
+//a.click();
 
-/*
-var grid = rint/2;
-var x = 0;
-var y = 1;
-
-while (x < 32) {
-	ctx.moveTo(mx+grid*x,0);
-	ctx.lineTo(mx+grid*x,c.height);
-	ctx.moveTo(mx-grid*x,0);
-	ctx.lineTo(mx-grid*x,c.height)
-	x++;
-}
-while (y < 32) {
-	ctx.moveTo(0,my+grid*y);
-	ctx.lineTo(c.width,my+grid*y);
-	ctx.moveTo(0,my-grid*y);
-	ctx.lineTo(c.width,my-grid*y);
-	y++;
-}
-
-ctx.strokeStyle = 'rgba(0,0,0,0.3)';
-ctx.lineWidth = 2;
-ctx.stroke();
-*/
-
-//var ratio = width/height;
-//c.style.width = 
-
+document.getElementById('container').appendChild(createPolar());
+document.getElementById('container').appendChild(createPolar());
 
 
 </script>

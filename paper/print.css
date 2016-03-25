@@ -1,0 +1,20 @@
+@page {
+	size: letter;
+}
+
+#container {
+	position: absolute;
+	margin: 0 auto;
+	width: 8.5in;
+	height: 11in;
+}
+
+#container canvas {
+	height: 45%;
+	position: relative;
+	margin: 0 auto;
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
