@@ -170,7 +170,7 @@ curves.meta = {
 	hypocycloid: {
 		type: "parametric",
 		title: "Hypocycloid",
-		equation: "x = (a-b)\\cos t + b\\cos(\\(frac{a}{b}-1)t), y = (a-b)\\sin t - b\\sin(\\(frac{a}{b}-1)t)",
+		equation: "x = (a-b)\\cos t + b\\cos((\\frac{a}{b}-1)t), y = (a-b)\\sin t - b\\sin((\\frac{a}{b}-1)t)",
 		draw: function(t) {
 			var a = 9;
 			var b = 5.4;
@@ -183,7 +183,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Hypotrochoid",
 		max: 47,
-		equation: "x = (a-b)\\cos t + c\\cos(\\(frac{a}{b}-1)t), y = (a-b)\\sin t - c\\cos(\\(frac{a}{b}-1)t)",
+		equation: "x = (a-b)\\cos t + c\\cos((\\frac{a}{b}-1)t), y = (a-b)\\sin t - c\\cos((\\frac{a}{b}-1)t)",
 		draw: function(t) {
 			var a = 10, b = 14, c = 4.4;
 			var xi = (a - b) * Math.cos(t) + c * Math.cos((a/b - 1) * t);
