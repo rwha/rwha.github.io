@@ -82,11 +82,7 @@ body {
 #show .canvas canvas {
 	position: absolute;
 	height: calc(70vw - 40px);
-	/*max-height: 1000px;
-	/*transition: transform 0.2s ease-out;
-	transform: translateX(-120%);
-	opacity: 0;
-	transition: opacity 0.2s;*/
+	max-height: 1000px;
 }
 
 #eq {
