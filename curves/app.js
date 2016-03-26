@@ -367,6 +367,7 @@ curves.Card.prototype.resetCanvas = function() {
 
 curves.Card.prototype.draw = function(name) {
 	var eq = document.getElementById('eq');
+	eq.style.display = 'block';
 	var can = document.getElementById('can');
 	if(!curves.meta[name]) {
 		console.error('unknown curve: ' + name);
