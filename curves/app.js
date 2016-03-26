@@ -170,7 +170,7 @@ curves.meta = {
 	hypocycloid: {
 		type: "parametric",
 		title: "Hypocycloid",
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "x = (a-b)\\cos t + b\\cos(\\(frac{a}{b}-1)t), y = (a-b)\\sin t - b\\sin(\\(frac{a}{b}-1)t)",
 		draw: function(t) {
 			var a = 9;
 			var b = 5.4;
@@ -183,7 +183,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Hypotrochoid",
 		max: 47,
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "x = (a-b)\\cos t + c\\cos(\\(frac{a}{b}-1)t), y = (a-b)\\sin t - c\\cos(\\(frac{a}{b}-1)t)",
 		draw: function(t) {
 			var a = 10, b = 14, c = 4.4;
 			var xi = (a - b) * Math.cos(t) + c * Math.cos((a/b - 1) * t);
@@ -194,7 +194,7 @@ curves.meta = {
 	limacon: {
 		type: "polar",
 		title: "Limaçon",
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "r = a + b\\cos t",
 		draw: function(t) {
 			var r = 3 + 6 * Math.cos(t);
 			return {x: (r * Math.cos(t)), y: (r * Math.sin(t))};
@@ -203,7 +203,7 @@ curves.meta = {
 	parabola: {
 		type: "parametric",
 		title: "Parabola",
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "y = ax^2 + bx + c",
 		draw: function(t){
 			return {x: t, y: (t * t)};
 		},
@@ -246,7 +246,6 @@ curves.meta = {
 		title: "Trident of Newton",
 		//max: 20,
 		draw: function(t) {
-			//console.log('newton');
 			//var s = t; // - 3;
 			var a = 0.1, b = 0.2, c = 0.3, d = 0.4;
 			//var xi = s * (s * s - 2 * b * s + c);
