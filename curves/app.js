@@ -287,6 +287,7 @@ curves.Card = function() {
 				card.draw(this.id);
 			});
 		});
+		t.firstChild.click();
 	}(curves.meta));
 }
 
