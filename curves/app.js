@@ -373,7 +373,7 @@ curves.Card.prototype.draw = function(name) {
 		return;
 	}
 	var anim = can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
-	
+	anim.onfinish = returnCan;
 	function returnCan() {
 		card.resetCanvas();
 		switch (curves.meta[name].type) {
@@ -388,7 +388,7 @@ curves.Card.prototype.draw = function(name) {
 		}
 		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	}
-	anim.finished.then(returnCan);
+	
 	katex.render(curves.meta[name].equation, eq);
 }
 
