@@ -395,5 +395,6 @@ curves.Card.prototype.draw = function(name) {
 
 window.onload = function() {
 	card = new curves.Card();
+	document.getElementById('tiles').firstChild.click();
 }
 
