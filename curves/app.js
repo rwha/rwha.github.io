@@ -386,10 +386,9 @@ curves.Card.prototype.draw = function(name) {
 			default:
 				console.log('unknown function type: ' + curves.meta[name].type);
 		}
+		katex.render(curves.meta[name].equation, eq);
 		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	}
-	
-	katex.render(curves.meta[name].equation, eq);
 }
 
 window.onload = function() {
