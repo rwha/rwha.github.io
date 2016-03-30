@@ -5,7 +5,7 @@ curves.meta = {
 	astroid: {
 		type: "parametric",
 		title: "Astroid",
-		equation: "\\begin{align*} x \&= a \\cos^3(t)\\ y \&= a \\sin^3(t)\\end{align*}",
+		equation: "\\begin{aligned} x \&= a \\cos^3(t)\\ y \&= a \\sin^3(t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var ci = Math.cos(t);
