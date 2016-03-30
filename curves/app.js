@@ -54,7 +54,7 @@ curves.meta = {
 	cissoidOfDiocles: {
 		type: "polar",
 		title: "Cissoid of Diocles",
-		equation: "r = 2a \\tan\\theta\\ sin\\theta",
+		equation: "r = 2a \\tan\\theta\\sin\\theta",
 		draw: function(t) {
 			var a = 2;
 			var r = 2 * a * Math.tan(t) * Math.sin(t);
@@ -65,7 +65,7 @@ curves.meta = {
 		type: "polar",
 		title: "Cochleoid",
 		max: 6,
-		equation: "r = \\frac{a \\sin\\theta}{\\theta}", 
+		equation: "\\displaystyle r = \\frac{a \\sin\\theta}{\\theta}", 
 		draw: function(t) {
 			var a = 9;
 			var r = a * Math.sin(t)/t;
@@ -86,7 +86,7 @@ curves.meta = {
 	conchoidOfDeSluze: {
 		type: "polar",
 		title: "Conchoid of DeSluze",
-		equation: "r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}",
+		equation: "\\displaystyle r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}",
 		draw: function(t) {
 			var a = 1;
 			var k = 2.5;
@@ -158,7 +158,7 @@ curves.meta = {
 	foliumOfDescartes: {
 		type: "polar",
 		title: "Folium of Descartes",
-		equation: "r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
+		equation: "\\displaystyle r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
 		draw: function(t) {
 			var a = 3;
 			var s = Math.sin(t);
