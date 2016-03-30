@@ -102,3 +102,7 @@ body {
 #eq:hover {
 	opacity: 0.5;
 }
+
+.katex-display {
+	margin: 0;
+}
