@@ -5,7 +5,7 @@ curves.meta = {
 	astroid: {
 		type: "parametric",
 		title: "Astroid",
-		equation: "\\begin{aligned} x \&= a \\cos^3(t)\\ y \&= a \\sin^3(t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= a \\cos^3(t) \\\\ y \&= a \\sin^3(t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var ci = Math.cos(t);
@@ -18,7 +18,7 @@ curves.meta = {
 	bicorn: {
 		type: "parametric",
 		title: "Bicorn",
-		equation: "\\begin{align} x \&= a \\cos(t)\\ y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{align}",
+		equation: "\\begin{aligned} x \&= a \\cos(t) \\\\ y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var sin = Math.sin(t);
@@ -98,7 +98,7 @@ curves.meta = {
 	cycloid: {
 		type: "parametric",
 		title: "Cycloid",
-		equation: "\\begin{align} x \&= t - \\sin t \\ y \&= 1 - \\cos t\\end{align}",
+		equation: "\\begin{aligned} x \&= t - \\sin t \\\\ y \&= 1 - \\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 1;
 			var h = 1;
@@ -110,7 +110,7 @@ curves.meta = {
 	curateCycloid: {
 		type: "parametric",
 		title: "Cycloid (curate)",
-		equation: "\\begin{align} x \&= 2t - \\sin t \\ y \&= 2 - \\cos t\\end{align}",
+		equation: "\\begin{aligned} x \&= 2t - \\sin t \\\\ y \&= 2 - \\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 2;
 			var h = 1;
@@ -122,7 +122,7 @@ curves.meta = {
 	prolateCycloid: {
 		type: "parametric",
 		title: "Cycloid (prolate)",
-		equation: "\\begin{align} x \&= t - 2\\sin t \\ y \&= 1 - 2\\cos t\\end{align}",
+		equation: "\\begin{aligned} x \&= t - 2\\sin t \\\\ y \&= 1 - 2\\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 1;
 			var h = 2;
@@ -135,7 +135,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Epicycloid",
 		max: 20,
-		equation: "\\begin{align} x \&= (a+b) \\cos t - b \\cos((\\frac{a}{b} + 1)t) \\ y \&= (a+b) \\sin t - b \\sin((\\frac{a}{b}+1)t)\\end{align}",
+		equation: "\\begin{aligned} x \&= (a+b) \\cos t - b \\cos((\\frac{a}{b} + 1)t) \\\\ y \&= (a+b) \\sin t - b \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 4.5, b = 2;
 			var xi = (a + b) * Math.cos(t) - b * Math.cos((a/b + 1) * t);
@@ -147,7 +147,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Epitrochoid",
 		max: 20,
-		equation: "\\begin{align} x \&= (a+b) \\cos t - c \\cos((\\frac{a}{b} + 1)t) \\ y \&= (a+b) \\sin t - c \\sin((\\frac{a}{b}+1)t)\\end{align}",
+		equation: "\\begin{aligned} x \&= (a+b) \\cos t - c \\cos((\\frac{a}{b} + 1)t) \\\\ y \&= (a+b) \\sin t - c \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 4.5, b = 2, c = 3;
 			var xi = (a + b) * Math.cos(t) - c * Math.cos((a/b + 1) * t);
@@ -170,7 +170,7 @@ curves.meta = {
 	hypocycloid: {
 		type: "parametric",
 		title: "Hypocycloid",
-		equation: "\\begin{align} x \&= (a-b)\\cos t + b\\cos((\\frac{a}{b}-1)t) \\ y \&= (a-b)\\sin t - b\\sin((\\frac{a}{b}-1)t)\\end{align}",
+		equation: "\\begin{aligned} x \&= (a-b)\\cos t + b\\cos((\\frac{a}{b}-1)t) \\\\ y \&= (a-b)\\sin t - b\\sin((\\frac{a}{b}-1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var b = 5.4;
@@ -183,7 +183,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Hypotrochoid",
 		max: 47,
-		equation: "\\begin{align} x \&= (a-b)\\cos t + c\\cos((\\frac{a}{b}-1)t) \\ y \&= (a-b)\\sin t - c\\cos((\\frac{a}{b}-1)t)\\end{align}",
+		equation: "\\begin{aligned} x \&= (a-b)\\cos t + c\\cos((\\frac{a}{b}-1)t) \\\\ y \&= (a-b)\\sin t - c\\cos((\\frac{a}{b}-1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 10, b = 14, c = 4.4;
 			var xi = (a - b) * Math.cos(t) + c * Math.cos((a/b - 1) * t);
