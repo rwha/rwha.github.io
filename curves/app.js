@@ -30,7 +30,7 @@ curves.meta = {
 	cardiod: {
 		type: "polar",
 		title: "Cardiod",
-		equation: "r = 2a(1+\\cos\\theta) \\\\ a=2",
+		equation: "r = 2a(1+\\cos\\theta)",
 		draw: function(t) {
 			var a = 2;
 			var s = Math.sin(t);
