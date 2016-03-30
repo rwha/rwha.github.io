@@ -5,7 +5,7 @@ curves.meta = {
 	astroid: {
 		type: "parametric",
 		title: "Astroid",
-		equation: "\\displaystyle x = a \\cos^3(t) \\ y = a \\sin^3(t)",
+		equation: "x = a \\cos^3(t)\\ y = a \\sin^3(t)",
 		draw: function(t) {
 			var a = 9;
 			var ci = Math.cos(t);
@@ -18,7 +18,7 @@ curves.meta = {
 	bicorn: {
 		type: "parametric",
 		title: "Bicorn",
-		equation: "\\displaystyle x = a \\cos(t), y = \\frac{\\sin^2(t)}{2 + \\sin(t)}; a=9",
+		equation: "x = a \\cos(t), y = \\frac{\\sin^2(t)}{2 + \\sin(t)}; a=9",
 		draw: function(t) {
 			var a = 9;
 			var sin = Math.sin(t);
@@ -30,7 +30,7 @@ curves.meta = {
 	cardiod: {
 		type: "polar",
 		title: "Cardiod",
-		equation: "\\displaystyle r = 2a(1+\\cos\\theta); a=2",
+		equation: "r = 2a(1+\\cos\\theta); a=2",
 		draw: function(t) {
 			var a = 2;
 			var s = Math.sin(t);
@@ -65,7 +65,7 @@ curves.meta = {
 		type: "polar",
 		title: "Cochleoid",
 		max: 6,
-		equation: "\\displaystyle r = \\frac{a \\sin\\theta}{\\theta}; a=9", //; 0\\leq\\theta\\leq6\\pi",
+		equation: "r = \\frac{a \\sin\\theta}{\\theta}; a=9", //; 0\\leq\\theta\\leq6\\pi",
 		draw: function(t) {
 			var a = 9;
 			var r = a * Math.sin(t)/t;
@@ -75,7 +75,7 @@ curves.meta = {
 	conchoid: {
 		type: "polar",
 		title: "Conchoid",
-		equation: "\\displaystyle r = a + b\\sec\\theta; a=5, b=2", //; 0\\leq\\theta\\leq2\\pi",
+		equation: "r = a + b\\sec\\theta; a=5, b=2", //; 0\\leq\\theta\\leq2\\pi",
 		draw: function(t) {
 			var a = 5;
 			var b = 2;
@@ -86,7 +86,7 @@ curves.meta = {
 	conchoidOfDeSluze: {
 		type: "polar",
 		title: "Conchoid of DeSluze",
-		equation: "\\displaystyle r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}; a=1, k=2.5",
+		equation: "r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}; a=1, k=2.5",
 		draw: function(t) {
 			var a = 1;
 			var k = 2.5;
@@ -158,7 +158,7 @@ curves.meta = {
 	foliumOfDescartes: {
 		type: "polar",
 		title: "Folium of Descartes",
-	equation: "\\displaystyle r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
+		equation: "r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
 		draw: function(t) {
 			var a = 3;
 			var s = Math.sin(t);
@@ -386,7 +386,7 @@ curves.Card.prototype.draw = function(name) {
 			default:
 				console.log('unknown function type: ' + curves.meta[name].type);
 		}
-		katex.render(curves.meta[name].equation, eq);
+		katex.render(curves.meta[name].equation, eq, { displayMode: true});
 		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	}
 }
