@@ -5,7 +5,7 @@ curves.meta = {
 	astroid: {
 		type: "parametric",
 		title: "Astroid",
-		equation: "\\begin{aligned} x \&= a \\cos^3(t) \\\\[1.2ex] y \&= a \\sin^3(t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= a \\cos^3(t) \\\\[1.5ex] y \&= a \\sin^3(t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var ci = Math.cos(t);
@@ -18,7 +18,7 @@ curves.meta = {
 	bicorn: {
 		type: "parametric",
 		title: "Bicorn",
-		equation: "\\begin{aligned} x \&= a \\cos(t) \\\\[1.2ex] y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{aligned}",
+		equation: "\\begin{aligned} x \&= a \\cos(t) \\\\[1.5ex] y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var sin = Math.sin(t);
@@ -30,7 +30,7 @@ curves.meta = {
 	cardiod: {
 		type: "polar",
 		title: "Cardiod",
-		equation: "r = 2a(1+\\cos\\theta); a=2",
+		equation: "r = 2a(1+\\cos\\theta) \\\\ a=2",
 		draw: function(t) {
 			var a = 2;
 			var s = Math.sin(t);
@@ -43,7 +43,7 @@ curves.meta = {
 		type: "polar",
 		title: "Cayley's Sextic",
 		max: 3,
-		equation: "r = 4a\\cos^3(\\frac{\\theta}{3}); a=2",
+		equation: "r = 4a\\cos^3(\\frac{\\theta}{3})",
 		draw: function(t) {
 			var a = 2;
 			var c = Math.cos(t/3);
@@ -54,7 +54,7 @@ curves.meta = {
 	cissoidOfDiocles: {
 		type: "polar",
 		title: "Cissoid of Diocles",
-		equation: "r = 2a \\tan\\theta\\ sin\\theta; a=2",
+		equation: "r = 2a \\tan\\theta\\ sin\\theta",
 		draw: function(t) {
 			var a = 2;
 			var r = 2 * a * Math.tan(t) * Math.sin(t);
@@ -65,7 +65,7 @@ curves.meta = {
 		type: "polar",
 		title: "Cochleoid",
 		max: 6,
-		equation: "r = \\frac{a \\sin\\theta}{\\theta}; a=9", //; 0\\leq\\theta\\leq6\\pi",
+		equation: "r = \\frac{a \\sin\\theta}{\\theta}", 
 		draw: function(t) {
 			var a = 9;
 			var r = a * Math.sin(t)/t;
@@ -75,7 +75,7 @@ curves.meta = {
 	conchoid: {
 		type: "polar",
 		title: "Conchoid",
-		equation: "r = a + b\\sec\\theta; a=5, b=2", //; 0\\leq\\theta\\leq2\\pi",
+		equation: "r = a + b\\sec\\theta",
 		draw: function(t) {
 			var a = 5;
 			var b = 2;
@@ -86,7 +86,7 @@ curves.meta = {
 	conchoidOfDeSluze: {
 		type: "polar",
 		title: "Conchoid of DeSluze",
-		equation: "r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}; a=1, k=2.5",
+		equation: "r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}",
 		draw: function(t) {
 			var a = 1;
 			var k = 2.5;
@@ -98,7 +98,7 @@ curves.meta = {
 	cycloid: {
 		type: "parametric",
 		title: "Cycloid",
-		equation: "\\begin{aligned} x \&= t - \\sin t \\\\[1.2ex] y \&= 1 - \\cos t\\end{aligned}",
+		equation: "\\begin{aligned} x \&= t - \\sin t \\\\[1.5ex] y \&= 1 - \\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 1;
 			var h = 1;
@@ -110,7 +110,7 @@ curves.meta = {
 	curateCycloid: {
 		type: "parametric",
 		title: "Cycloid (curate)",
-		equation: "\\begin{aligned} x \&= 2t - \\sin t \\\\[1.2ex] y \&= 2 - \\cos t\\end{aligned}",
+		equation: "\\begin{aligned} x \&= 2t - \\sin t \\\\[1.5ex] y \&= 2 - \\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 2;
 			var h = 1;
@@ -122,7 +122,7 @@ curves.meta = {
 	prolateCycloid: {
 		type: "parametric",
 		title: "Cycloid (prolate)",
-		equation: "\\begin{aligned} x \&= t - 2\\sin t \\\\[1.2ex] y \&= 1 - 2\\cos t\\end{aligned}",
+		equation: "\\begin{aligned} x \&= t - 2\\sin t \\\\[1.5ex] y \&= 1 - 2\\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 1;
 			var h = 2;
@@ -135,7 +135,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Epicycloid",
 		max: 20,
-		equation: "\\begin{aligned} x \&= (a+b) \\cos t - b \\cos((\\frac{a}{b} + 1)t) \\\\[1.2ex] y \&= (a+b) \\sin t - b \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= (a+b) \\cos t - b \\cos((\\frac{a}{b} + 1)t) \\\\[1.5ex] y \&= (a+b) \\sin t - b \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 4.5, b = 2;
 			var xi = (a + b) * Math.cos(t) - b * Math.cos((a/b + 1) * t);
@@ -147,7 +147,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Epitrochoid",
 		max: 20,
-		equation: "\\begin{aligned} x \&= (a+b) \\cos t - c \\cos((\\frac{a}{b} + 1)t) \\\\[1.2ex] y \&= (a+b) \\sin t - c \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= (a+b) \\cos t - c \\cos((\\frac{a}{b} + 1)t) \\\\[1.5ex] y \&= (a+b) \\sin t - c \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 4.5, b = 2, c = 3;
 			var xi = (a + b) * Math.cos(t) - c * Math.cos((a/b + 1) * t);
@@ -170,7 +170,7 @@ curves.meta = {
 	hypocycloid: {
 		type: "parametric",
 		title: "Hypocycloid",
-		equation: "\\begin{aligned} x \&= (a-b)\\cos t + b\\cos((\\frac{a}{b}-1)t) \\\\[1.2ex] y \&= (a-b)\\sin t - b\\sin((\\frac{a}{b}-1)t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= (a-b)\\cos t + b\\cos((\\frac{a}{b}-1)t) \\\\[1.5ex] y \&= (a-b)\\sin t - b\\sin((\\frac{a}{b}-1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var b = 5.4;
@@ -183,7 +183,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Hypotrochoid",
 		max: 47,
-		equation: "\\begin{aligned} x \&= (a-b)\\cos t + c\\cos((\\frac{a}{b}-1)t) \\\\[1.2ex] y \&= (a-b)\\sin t - c\\cos((\\frac{a}{b}-1)t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= (a-b)\\cos t + c\\cos((\\frac{a}{b}-1)t) \\\\[1.5ex] y \&= (a-b)\\sin t - c\\cos((\\frac{a}{b}-1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 10, b = 14, c = 4.4;
 			var xi = (a - b) * Math.cos(t) + c * Math.cos((a/b - 1) * t);
