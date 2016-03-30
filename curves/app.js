@@ -386,7 +386,8 @@ curves.Card.prototype.draw = function(name) {
 			default:
 				console.log('unknown function type: ' + curves.meta[name].type);
 		}
-		katex.render(curves.meta[name].equation, eq, { displayMode: true});
+		var dm = window.location.hash.substring(1);
+		katex.render(curves.meta[name].equation, eq, { displayMode: (dm || false)});
 		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	}
 }
