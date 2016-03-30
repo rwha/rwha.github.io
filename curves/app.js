@@ -5,7 +5,7 @@ curves.meta = {
 	astroid: {
 		type: "parametric",
 		title: "Astroid",
-		equation: "\\begin{aligned} x \&= a \\cos^3(t) \\\\ y \&= a \\sin^3(t)\\end{aligned}",
+		equation: "\\begin{aligned} x \&= a \\cos^3(t) \\\\[0.5ex] y \&= a \\sin^3(t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var ci = Math.cos(t);
@@ -18,7 +18,7 @@ curves.meta = {
 	bicorn: {
 		type: "parametric",
 		title: "Bicorn",
-		equation: "\\begin{aligned} x \&= a \\cos(t) \\\\ y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{aligned}",
+		equation: "\\begin{aligned} x \&= a \\cos(t) \\\\[0.5ex] y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var sin = Math.sin(t);
