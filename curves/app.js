@@ -162,15 +162,10 @@ curves.meta = {
 		equation: "x^3 + y^3 = 3axy",
 		draw: function(t) {
 			var a = 3;
-			//var s = Math.sin(t);
-			//var c = Math.cos(t);
-			//var r = 3 * a * s * c/((s * s * s) + (c * c * c));
-			//return {x: (r * c), y: (r * s)};
-			var x = (3 * a * t)/(1 + t * t * t);
-			var y = (3 * a * t * t)/(1 + t * t * t);
-			return {x: x, y: y};
-			
-			
+			var s = Math.sin(t);
+			var c = Math.cos(t);
+			var r = 3 * a * s * c/((s * s * s) + (c * c * c));
+			return {x: (r * c), y: (r * s)};
 		}
 	},
 	hypocycloid: {
