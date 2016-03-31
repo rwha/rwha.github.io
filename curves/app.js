@@ -1,11 +1,12 @@
 'use strict';
-var card, curves = {};
+var curves = {};
+var card;
 
 curves.meta = {
 	astroid: {
 		type: "parametric",
 		title: "Astroid",
-		equation: "\\displaystyle x = a \\cos^3(t), y = a \\sin^3(t); a=9",
+		equation: "\\begin{aligned} x \&= a \\cos^3(t) \\\\[1.5ex] y \&= a \\sin^3(t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var ci = Math.cos(t);
@@ -18,7 +19,7 @@ curves.meta = {
 	bicorn: {
 		type: "parametric",
 		title: "Bicorn",
-		equation: "\\displaystyle x = a \\cos(t), y = \\frac{\\sin^2(t)}{2 + \\sin(t)}; a=9",
+		equation: "\\begin{aligned} x \&= a \\cos(t) \\\\[1.5ex] y \&= \\frac{\\sin^2(t)}{2 + \\sin(t)}\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var sin = Math.sin(t);
@@ -30,7 +31,7 @@ curves.meta = {
 	cardiod: {
 		type: "polar",
 		title: "Cardiod",
-		equation: "\\displaystyle r = 2a(1+\\cos\\theta); a=2",
+		equation: "r = 2a(1+\\cos\\theta)",
 		draw: function(t) {
 			var a = 2;
 			var s = Math.sin(t);
@@ -43,7 +44,7 @@ curves.meta = {
 		type: "polar",
 		title: "Cayley's Sextic",
 		max: 3,
-		equation: "r = 4a\\cos^3(\\frac{\\theta}{3}); a=2",
+		equation: "r = 4a\\cos^3(\\frac{\\theta}{3})",
 		draw: function(t) {
 			var a = 2;
 			var c = Math.cos(t/3);
@@ -54,7 +55,7 @@ curves.meta = {
 	cissoidOfDiocles: {
 		type: "polar",
 		title: "Cissoid of Diocles",
-		equation: "r = 2a \\tan\\theta\\ sin\\theta; a=2",
+		equation: "r = 2a \\tan\\theta\\sin\\theta",
 		draw: function(t) {
 			var a = 2;
 			var r = 2 * a * Math.tan(t) * Math.sin(t);
@@ -65,7 +66,7 @@ curves.meta = {
 		type: "polar",
 		title: "Cochleoid",
 		max: 6,
-		equation: "\\displaystyle r = \\frac{a \\sin\\theta}{\\theta}; a=9", //; 0\\leq\\theta\\leq6\\pi",
+		equation: "\\displaystyle r = \\frac{a \\sin\\theta}{\\theta}", 
 		draw: function(t) {
 			var a = 9;
 			var r = a * Math.sin(t)/t;
@@ -75,7 +76,7 @@ curves.meta = {
 	conchoid: {
 		type: "polar",
 		title: "Conchoid",
-		equation: "\\displaystyle r = a + b\\sec\\theta; a=5, b=2", //; 0\\leq\\theta\\leq2\\pi",
+		equation: "r = a + b\\sec\\theta",
 		draw: function(t) {
 			var a = 5;
 			var b = 2;
@@ -86,7 +87,7 @@ curves.meta = {
 	conchoidOfDeSluze: {
 		type: "polar",
 		title: "Conchoid of DeSluze",
-		equation: "\\displaystyle r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}; a=1, k=2.5",
+		equation: "\\displaystyle r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}",
 		draw: function(t) {
 			var a = 1;
 			var k = 2.5;
@@ -98,7 +99,7 @@ curves.meta = {
 	cycloid: {
 		type: "parametric",
 		title: "Cycloid",
-		equation: "x = t - \\sin t, y = 1 - \\cos t",
+		equation: "\\begin{aligned} x \&= t - \\sin t \\\\[1.5ex] y \&= 1 - \\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 1;
 			var h = 1;
@@ -110,7 +111,7 @@ curves.meta = {
 	curateCycloid: {
 		type: "parametric",
 		title: "Cycloid (curate)",
-		equation: "x = 2t - \\sin t, y = 2 - \\cos t",
+		equation: "\\begin{aligned} x \&= 2t - \\sin t \\\\[1.5ex] y \&= 2 - \\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 2;
 			var h = 1;
@@ -122,7 +123,7 @@ curves.meta = {
 	prolateCycloid: {
 		type: "parametric",
 		title: "Cycloid (prolate)",
-		equation: "x = t - 2\\sin t, y = 1 - 2\\cos t",
+		equation: "\\begin{aligned} x \&= t - 2\\sin t \\\\[1.5ex] y \&= 1 - 2\\cos t\\end{aligned}",
 		draw: function(t) {
 			var a = 1;
 			var h = 2;
@@ -135,7 +136,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Epicycloid",
 		max: 20,
-		equation: "x = (a+b) \\cos t - b \\cos((\\frac{a}{b} + 1)t), y = (a+b) \\sin t - b \\sin((\\frac{a}{b}+1)t)",
+		equation: "\\begin{aligned} x \&= (a+b) \\cos t - b \\cos((\\frac{a}{b} + 1)t) \\\\[1.5ex] y \&= (a+b) \\sin t - b \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 4.5, b = 2;
 			var xi = (a + b) * Math.cos(t) - b * Math.cos((a/b + 1) * t);
@@ -147,7 +148,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Epitrochoid",
 		max: 20,
-		equation: "x = (a+b) \\cos t - c \\cos((\\frac{a}{b} + 1)t), y = (a+b) \\sin t - c \\sin((\\frac{a}{b}+1)t)",
+		equation: "\\begin{aligned} x \&= (a+b) \\cos t - c \\cos((\\frac{a}{b} + 1)t) \\\\[1.5ex] y \&= (a+b) \\sin t - c \\sin((\\frac{a}{b}+1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 4.5, b = 2, c = 3;
 			var xi = (a + b) * Math.cos(t) - c * Math.cos((a/b + 1) * t);
@@ -156,9 +157,9 @@ curves.meta = {
 		}
 	},
 	foliumOfDescartes: {
-		type: "polar",
+		type: "parametric",
 		title: "Folium of Descartes",
-	equation: "\\displaystyle r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
+		equation: "\\displaystyle r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
 		draw: function(t) {
 			var a = 3;
 			var s = Math.sin(t);
@@ -170,7 +171,7 @@ curves.meta = {
 	hypocycloid: {
 		type: "parametric",
 		title: "Hypocycloid",
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "\\begin{aligned} x \&= (a-b)\\cos t + b\\cos((\\frac{a}{b}-1)t) \\\\[1.5ex] y \&= (a-b)\\sin t - b\\sin((\\frac{a}{b}-1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 9;
 			var b = 5.4;
@@ -183,7 +184,7 @@ curves.meta = {
 		type: "parametric",
 		title: "Hypotrochoid",
 		max: 47,
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "\\begin{aligned} x \&= (a-b)\\cos t + c\\cos((\\frac{a}{b}-1)t) \\\\[1.5ex] y \&= (a-b)\\sin t - c\\cos((\\frac{a}{b}-1)t)\\end{aligned}",
 		draw: function(t) {
 			var a = 10, b = 14, c = 4.4;
 			var xi = (a - b) * Math.cos(t) + c * Math.cos((a/b - 1) * t);
@@ -194,7 +195,7 @@ curves.meta = {
 	limacon: {
 		type: "polar",
 		title: "Limaçon",
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "r = a + b\\cos t",
 		draw: function(t) {
 			var r = 3 + 6 * Math.cos(t);
 			return {x: (r * Math.cos(t)), y: (r * Math.sin(t))};
@@ -203,15 +204,14 @@ curves.meta = {
 	parabola: {
 		type: "parametric",
 		title: "Parabola",
-		equation: "c = \\pm\\sqrt{a^2 + b^2}",
+		equation: "y = ax^2 + bx + c",
 		draw: function(t){
 			return {x: t, y: (t * t)};
 		},
 	},
 	newtonsParabola: {
-		type: "polar",
+		type: "parametric",
 		title: "Newton's Parabolas**",
-		//max: 4,
 		equation: "ay^2 = x(x^2 - 2bx + c), a > 0",
 		draw: function(t) {
 			var a = 8;
@@ -227,7 +227,6 @@ curves.meta = {
 	cassinianOvals: {
 		type: "polar",
 		title: "Cassinian Ovals**",
-		//max: 4,
 		equation: "(x^2 + y^2)^2 - 2a^2(x^2-y^2) + a^4 - c^4 = 0",
 		draw: function(t) {
 			var a = 1;
@@ -239,57 +238,130 @@ curves.meta = {
 			var r = (Math.pow((x2 + y2), 2) + Math.pow(a, 4) - Math.pow(c, 4))/(a * a * 2 * (x2 - y2));
 			return {x: (r * x), y: (r * y)};
 		}
-	},
-	/*
-	tridentOfNewton: {
-		type: "parametric",
-		title: "Trident of Newton",
-		//max: 20,
-		draw: function(t) {
-			//console.log('newton');
-			//var s = t; // - 3;
-			var a = 0.1, b = 0.2, c = 0.3, d = 0.4;
-			//var xi = s * (s * s - 2 * b * s + c);
-			var yi = a * t * t * t + b * t * t  + c * t + d;
-			return {x: t, y: yi*t};
-		}
 	},	
-	*/
-	
 };
 
-curves.Card = function() {
-	this.canvas = (function(){
-		var cvs = document.createElement('canvas');
-		cvs.height = cvs.width = 1000;
-		can.appendChild(cvs);
-		return cvs;
-	}());
-	
-	(function(c){
+(function () {
+	var Card = function() {
+		this.canvas = document.getElementById('canvas');
+		this.ctx = this.canvas.getContext('2d');
+		this.bg = {};
+		this.bg.polar = new Image();
+		this.bg.parametric = new Image();
+		this.bg.polar.src = 'polar.svg';
+		this.bg.parametric.src = 'parametric.svg';
 		var t = document.getElementById('tiles');
+		
 		var frag = document.createDocumentFragment();
-		Object.keys(c).forEach(function(k){
+		Object.keys(curves.meta).forEach(function(k){
 			var p = document.createElement('div');
-			p.textContent = c[k].title;
+			p.textContent = curves.meta[k].title;
 			p.className = 'parent';
 			p.setAttribute('id', k);
 			frag.appendChild(p);
 		});
 		t.appendChild(frag);
-		Array.prototype.forEach.call(t.childNodes, function(n){
-			var nc = n;
-			nc.addEventListener('click', function(e){
-				e.stopPropagation();
-				var s = document.getElementsByClassName('selected')[0];
-				if(s) s.className = 'parent'; 
-				this.className = 'selected';
-				card.draw(this.id);
-			});
-		});
-	}(curves.meta));
-}
+		
+		this.clicker = function(e) {
+			e.stopPropagation();
+			var s = document.getElementsByClassName('selected')[0];
+			if(s) s.className = 'parent'; 
+			e.target.className = 'selected';
+			this.draw(e.target.id);
+		}
+		
+		for (var i = 0, l = t.childNodes; i < l.length; i++) {
+			var nc = l[i];
+			nc.addEventListener('click', this.clicker.bind(this), false);
+		}
+	}
+	
+	Card.prototype.parametric = function (curve) {
+		document.getElementById('can').style.borderRadius = '0';
+		var tos,los,started = false;
+		var max = (curve.max || 10);
+		var ctx = this.ctx;
+		ctx.beginPath();
+		for (var s = -10; s <= max; s += 0.01) {
+			var points = curve.draw(s);
+			var xi = ((points.x+10)/20)*1000;
+			var yi = ((10-points.y)/20)*1000;
+			if(!started) { started = true; ctx.moveTo(xi,yi); }
+			tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
+			if(los || tos) {
+				ctx.lineTo(xi,yi);
+			} else {
+				ctx.moveTo(xi,yi);
+			}
+			los=tos;
+		}
+		ctx.shadowColor = ctx.strokeStyle = 'green';
+		ctx.lineWidth = 2;
+		ctx.shadowBlur = 1;
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+	}
 
+	Card.prototype.polar = function (curve) {
+		document.getElementById('can').style.borderRadius = '100%';
+		var tos,los,started=false;
+		var max = (curve.max || 2) * Math.PI;
+		var ctx = this.ctx;
+		ctx.beginPath();
+		for (var theta = 0; theta <= max; theta += 0.01) {
+			var r = curve.draw(theta);
+			var xi = ((r.x+10)/20)*1000;
+			var yi = ((10-r.y)/20)*1000;
+			if(!started) { started = true; ctx.moveTo(xi,yi); }
+			tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
+			if(los || tos) {
+				ctx.lineTo(xi,yi);
+			} else {
+				ctx.moveTo(xi,yi);
+			}
+			los=tos;
+		}
+		ctx.shadowColor = ctx.strokeStyle = 'red';
+		ctx.lineWidth = 2;
+		ctx.shadowBlur = 1;
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+	}
+	
+	Card.prototype.draw = function (name) {
+		var cur;
+		if(!curves.meta[name]) {
+			console.error('unknown curve: ' + name);
+			return;
+		} else {
+			cur = curves.meta[name];
+		}
+
+		var can = document.getElementById('can');
+		var anim = can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
+		anim.onfinish = returnCan.bind(this);
+
+		function returnCan() {
+			var eq = document.getElementById('eq');
+			var ctx = this.ctx;
+			ctx.save();
+			eq.style.display = 'block';
+			ctx.clearRect(0,0,1000,1000);
+			ctx.drawImage(this.bg[cur.type], 0, 0);
+			this[cur.type](cur);
+			katex.render(cur.equation, eq, { displayMode: false});
+			can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
+			ctx.restore();
+		}
+	}
+		
+	this.Card = Card;
+	
+}).call(curves);
+
+/*
 curves.Card.prototype.parametric = function(curve) {
 	var x,y,xi,yi,tos,los,started = false;
 	var ctx = this.canvas.getContext('2d');
@@ -313,7 +385,6 @@ curves.Card.prototype.parametric = function(curve) {
 	ctx.shadowColor = ctx.strokeStyle = 'green';
 	ctx.stroke();
 }
-
 curves.Card.prototype.polar = function(curve) {
 	var r,x,y,xi,yi,tos,los,started=false;
 	var ctx = this.canvas.getContext('2d');
@@ -337,6 +408,7 @@ curves.Card.prototype.polar = function(curve) {
 	ctx.shadowColor = ctx.strokeStyle = 'red';
 	ctx.stroke();
 }
+
 
 curves.Card.prototype.resetCanvas = function() {
 	var ctx = this.canvas.getContext('2d');
@@ -365,15 +437,17 @@ curves.Card.prototype.resetCanvas = function() {
 	ctx.lineJoin = 'round';
 }
 
+
 curves.Card.prototype.draw = function(name) {
 	var eq = document.getElementById('eq');
+	eq.style.display = 'block';
 	var can = document.getElementById('can');
 	if(!curves.meta[name]) {
 		console.error('unknown curve: ' + name);
 		return;
 	}
 	var anim = can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
-	
+	anim.onfinish = returnCan;
 	function returnCan() {
 		card.resetCanvas();
 		switch (curves.meta[name].type) {
@@ -386,13 +460,16 @@ curves.Card.prototype.draw = function(name) {
 			default:
 				console.log('unknown function type: ' + curves.meta[name].type);
 		}
+		var dm = window.location.hash.substring(1);
+		katex.render(curves.meta[name].equation, eq, { displayMode: (dm || false)});
 		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 	}
-	anim.finished.then(returnCan);
-	katex.render(curves.meta[name].equation, eq);
 }
+*/
+
 
 window.onload = function() {
 	card = new curves.Card();
+	//document.getElementById('tiles').firstChild.click();
 }
 
