@@ -87,7 +87,7 @@ curves.meta = {
 	conchoidOfDeSluze: {
 		type: "polar",
 		title: "Conchoid of DeSluze",
-		equation: "\\displaystyle r = \\frac{k^2\\cos^2\\theta-a^2}{\\cos\\theta}",
+		equation: "a(r\\cos\\theta + a) = k^2\\cos^2\\theta",
 		draw: function(t) {
 			var a = 1;
 			var k = 2.5;
@@ -159,13 +159,18 @@ curves.meta = {
 	foliumOfDescartes: {
 		type: "parametric",
 		title: "Folium of Descartes",
-		equation: "\\displaystyle r = \\frac{3a\\sin\\theta \\cos\\theta}{\\sin^3\\theta + \\cos^3\\theta}",
+		equation: "x^3 + y^3 = 3axy",
 		draw: function(t) {
 			var a = 3;
-			var s = Math.sin(t);
-			var c = Math.cos(t);
-			var r = 3 * a * s * c/((s * s * s) + (c * c * c));
-			return {x: (r * c), y: (r * s)};
+			//var s = Math.sin(t);
+			//var c = Math.cos(t);
+			//var r = 3 * a * s * c/((s * s * s) + (c * c * c));
+			//return {x: (r * c), y: (r * s)};
+			var x = (3 * a * t)/(1 + t * t * t);
+			var y = (3 * a * t * t)/(1 + t * t * t);
+			return {x: x, y: y};
+			
+			
 		}
 	},
 	hypocycloid: {
