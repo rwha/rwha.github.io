@@ -210,11 +210,11 @@ curves.meta = {
 		},
 	},
 	newtonsParabola: {
-		type: "parametric",
+		type: "polar",
 		title: "Newton's Parabolas**",
 		equation: "ay^2 = x(x^2 - 2bx + c), a > 0",
 		draw: function(t) {
-			var a = 8;
+			var a = 3;
 			var b = -4;
 			var c = 5;
 			var y = Math.sin(t);
@@ -261,7 +261,7 @@ curves.meta = {
 			frag.appendChild(p);
 		});
 		t.appendChild(frag);
-		
+		this.ctx.drawImage(this.bg.parametric, 0, 0);
 		this.clicker = function(e) {
 			e.stopPropagation();
 			var s = document.getElementsByClassName('selected')[0];
@@ -340,19 +340,22 @@ curves.meta = {
 		}
 
 		var can = document.getElementById('can');
-		var anim = can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
-		anim.onfinish = returnCan.bind(this);
-
+		if ("animate" in can) {
+			var anim = can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
+			anim.onfinish = returnCan.bind(this);
+		} else {
+			returnCan();
+		}
 		function returnCan() {
 			var eq = document.getElementById('eq');
 			var ctx = this.ctx;
 			ctx.save();
 			eq.style.display = 'block';
 			ctx.clearRect(0,0,1000,1000);
-			ctx.drawImage(this.bg[cur.type], 0, 0);
+			ctx.drawImage(this.bg[cur.type], 0, 0, 1000, 1000);
 			this[cur.type](cur);
 			katex.render(cur.equation, eq, { displayMode: false});
-			can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
+			if (anim) can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
 			ctx.restore();
 		}
 	}
@@ -360,113 +363,6 @@ curves.meta = {
 	this.Card = Card;
 	
 }).call(curves);
-
-/*
-curves.Card.prototype.parametric = function(curve) {
-	var x,y,xi,yi,tos,los,started = false;
-	var ctx = this.canvas.getContext('2d');
-	var max = curve.max || 10;
-	ctx.beginPath();
-	for (var s = -10; s <= max; s += 0.01) {
-		var points = curve.draw(s);
-		x = points.x;
-		y = points.y;
-		xi = ((x+10)/20)*1000;
-		yi = ((10-y)/20)*1000;
-		if(!started) { started = true; ctx.moveTo(xi,yi); }
-		tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
-		if(los || tos) {
-			ctx.lineTo(xi,yi);
-		} else {
-			ctx.moveTo(xi,yi);
-		}
-		los=tos;
-	}
-	ctx.shadowColor = ctx.strokeStyle = 'green';
-	ctx.stroke();
-}
-curves.Card.prototype.polar = function(curve) {
-	var r,x,y,xi,yi,tos,los,started=false;
-	var ctx = this.canvas.getContext('2d');
-	var max = (curve.max || 2) * Math.PI;
-	ctx.beginPath();
-	for (var theta = 0; theta <= max; theta += 0.01) {
-		r = curve.draw(theta);
-		x = r.x;
-		y = r.y;
-		xi = ((x+10)/20)*1000;
-		yi = ((10-y)/20)*1000;
-		if(!started) { started = true; ctx.moveTo(xi,yi); }
-		tos = (xi>0 && xi<1000 && yi>0 && yi<1000);
-		if(los || tos) {
-			ctx.lineTo(xi,yi);
-		} else {
-			ctx.moveTo(xi,yi);
-		}
-		los=tos;
-	}
-	ctx.shadowColor = ctx.strokeStyle = 'red';
-	ctx.stroke();
-}
-
-
-curves.Card.prototype.resetCanvas = function() {
-	var ctx = this.canvas.getContext('2d');
-	ctx.clearRect(0,0,1000,1000);
-	ctx.beginPath();
-	ctx.moveTo(0, 500);
-	ctx.lineTo(1000, 500);
-	ctx.moveTo(500, 0);
-	ctx.lineTo(500, 1000);
-	ctx.strokeStyle = '#aaa';
-	ctx.shadowBlur = 0;
-	ctx.lineWidth = 2;
-	ctx.stroke();
-	ctx.beginPath();
-	for (var i = 50; i <= 950; i += 50) {
-		ctx.moveTo(i,0);
-		ctx.lineTo(i,1000);
-		ctx.moveTo(0,i);
-		ctx.lineTo(1000,i);
-	}
-	ctx.lineWidth = 1;
-	ctx.stroke();
-	ctx.lineWidth = 2;
-	ctx.shadowBlur = 1;
-	ctx.lineCap = 'round';
-	ctx.lineJoin = 'round';
-}
-
-
-curves.Card.prototype.draw = function(name) {
-	var eq = document.getElementById('eq');
-	eq.style.display = 'block';
-	var can = document.getElementById('can');
-	if(!curves.meta[name]) {
-		console.error('unknown curve: ' + name);
-		return;
-	}
-	var anim = can.animate([{transform: 'translateX(0)'}, {transform: 'translateX(-120%)'}], {duration: 150, fill: 'forwards'});
-	anim.onfinish = returnCan;
-	function returnCan() {
-		card.resetCanvas();
-		switch (curves.meta[name].type) {
-			case 'parametric':
-				card.parametric(curves.meta[name]);
-				break;
-			case 'polar':
-				card.polar(curves.meta[name]);
-				break;
-			default:
-				console.log('unknown function type: ' + curves.meta[name].type);
-		}
-		var dm = window.location.hash.substring(1);
-		katex.render(curves.meta[name].equation, eq, { displayMode: (dm || false)});
-		can.animate([{transform: 'translateX(-120%)'}, {transform: 'translateX(0)'}], {duration: 150, fill: 'forwards'});
-	}
-}
-*/
-
 
 window.onload = function() {
 	card = new curves.Card();
