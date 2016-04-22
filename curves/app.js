@@ -455,7 +455,7 @@ curves.meta = {
 			frag.appendChild(p);
 		});
 		t.appendChild(frag);
-		this.ctx.drawImage(this.bg.parametric, 0, 0);
+		//this.ctx.drawImage(this.bg.parametric, 0, 0);
 		this.clicker = function (e) {
 			e.stopPropagation();
 			var s = document.getElementsByClassName('selected')[0];
