@@ -533,5 +533,5 @@ curves.meta = {
 
 window.onload = function () {
 	card = new curves.Card();
-	document.getElementById('tiles').childNodes[0].click();
+	//document.getElementById('tiles').childNodes[0].click();
 }
