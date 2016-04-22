@@ -499,6 +499,7 @@ curves.meta = {
 			ctx.clearRect(0,0,1000,1000);
 			ctx.drawImage(that.bg[curve.type], 0, 0, 1000, 1000);
 			document.getElementById('can').style.borderRadius = (curve.type === "parametric") ? 0 : '100%';
+			that.canvas.style.borderRadius = (curve.type === "parametric") ? 0 : '100%';
 			var tos,los,started = false;
 			ctx.beginPath();
 			for (var s = curve.min, max = curve.max; s <= max; s += 0.01) {
