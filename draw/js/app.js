@@ -8,7 +8,7 @@ $("#back-color").spectrum({
 	color: "#FFFFFF",
 	showPalette: true,
 	showSelectionPalette: true,
-	palette: [],
+	//palette: [],
 	localStorageKey: "spectrum.homepage",
 	hideAfterPaletteSelect: true,
 	maxSelectionSize: 16,
@@ -25,7 +25,7 @@ $("#pen-color").spectrum({
 	color: "#2E2E2E",
 	showPalette: true,
 	showSelectionPalette: true,
-	palette: [],
+	//palette: [],
 	localStorageKey: "spectrum.homepage",
 	hideAfterPaletteSelect: true,
 	maxSelectionSize: 16,
@@ -54,23 +54,23 @@ function showSaveDiag(){
 function showOpenDiag(){
 	var diag = $("<div>").attr({class: 'dialog', id: 'opendiag'});
 	var ulist = $("<span>");
-	
+
 	storage.getProjects(function(projects) {
 		for (name in projects) {
 			var pic = new Layer();
 			pic.importJSON(projects[name]);
 			var img = $("<img>")
 				.attr({src: pic.rasterize().toDataURL(), 'id': name, width: '175'})
-				.click(function(e){ 
-					$("#opendiag").remove(); 
+				.click(function(e){
+					$("#opendiag").remove();
 					console.log(e.target.id);
-					storage.openProject(e.target.id, loadProject); 
+					storage.openProject(e.target.id, loadProject);
 				});
 			ulist.append(img);
 			pic.remove();
 		}
 	}, true);
-	
+
 	diag.append(ulist);
 	diag.append($("<p>").append($("<button>").text('cancel').css('float','right').click(function(){$("#opendiag").remove();})));
 	$("body").append(diag);
@@ -143,42 +143,42 @@ $(document).keyup(function(e){
 });
 
 $(window).load(function(){
-	
-	//storage.open(storable);	
-	
+
+	//storage.open(storable);
+
 	var bgcolor = $("#back-color").spectrum("get").toHexString();
 
 	paper.setup('canvas');
-	
+
 	var bg = new Path.Rectangle({
 		point: [0,0],
 		size: [$("#canvas").width(),$("#canvas").height()],
 		name: 'background',
 		fillColor: bgcolor
 	});
-	
+
 	view.onResize = function(){
 		paper.project.activeLayer.children['background'].set({size: [$("#canvas").width(),$("#canvas").height()]});
 	}
-	
+
 	var tool = new Tool();
 	var path;
 	var hitopts = {
 		segments: true,
 		stroke: true,
 		fill: true,
-		tolerance: 5	
+		tolerance: 5
 	};
-	
+
 	tool.onMouseDown = function(e) {
-		
+
 		if(Key.isDown('shift')) {
 			var hr = paper.project.hitTest(e.point, hitopts);
 			if(hr.type && hr.type == 'stroke'){
 				hr.item.remove();
 			}
 		} else {
-		
+
 		var color = $("#pen-color").spectrum("get").toHexString();
 		var stroke = document.getElementById('pen-size').value;
 		var opacity = document.getElementById('opacity').value;
@@ -190,42 +190,42 @@ $(window).load(function(){
 			strokeCap: 'round',
 			strokeJoin: 'bevel'
 		});
-		
+
 		}
 	}
-	
+
 	tool.onMouseDrag = function(e){
 		if(Key.isDown('shift')) {
 			var hr = paper.project.hitTest(e.point, hitopts);
 			if(hr.type && hr.type == 'stroke'){
 				hr.item.remove();
 			}
-		} else {		
+		} else {
 			path.add(e.point);
 		}
 	}
-	
+
 	tool.onMouseUp = function(e) {
 		if(!Key.isDown('shift')) {
 			path.simplify(10);
 		}
 	}
-	
-	view.draw();	
-	
+
+	view.draw();
+
 	$("#pic").click(function(){
 		var url = document.getElementById('canvas').toDataURL();
 		var link = document.createElement("a");
 		link.download = new Date().getTime();
 		link.href = url;
-		link.click();		
+		link.click();
 	});
-	
+
 	$("#clear").click(function(){
-		$('#pen-size').val(1);
-		$('#opacity').val(1);
-		$("#back-color").spectrum("set", 'white');
-		$("#pen-color").spectrum("set", 'black');
+		//$('#pen-size').val(1);
+		//$('#opacity').val(1);
+		//$("#back-color").spectrum("set", 'white');
+		//$("#pen-color").spectrum("set", 'black');
 		paper.project.activeLayer.removeChildren();
 		var background = new Path.Rectangle({
 			point: [0,0],
@@ -236,7 +236,7 @@ $(window).load(function(){
 		view.update();
 		taken.length = 0;
 	});
-	
+
 	$("#undo").click(function(){
 		if(paper.project.activeLayer.children.length > 1){
 			taken.push(paper.project.activeLayer.lastChild);
@@ -246,7 +246,7 @@ $(window).load(function(){
 			message('nothing to undo');
 		}
 	});
-	
+
 	$("#redo").click(function(){
 		if(taken.length > 0){
 			paper.project.activeLayer.addChild(taken.pop());
@@ -277,7 +277,7 @@ $(window).load(function(){
 		nl.remove();// Children(2,l._children.length);
 		view.update();
 	});
-	
+
 });
 
 $(document).ready(function() {
@@ -288,11 +288,11 @@ $(document).ready(function() {
 	});
 
 	$("#control")
-		.mouseenter(function() { 
-			$("#control").addClass("show"); 
+		.mouseenter(function() {
+			$("#control").addClass("show");
 		})
-		.mouseleave(function() { 
-			$("#control").removeClass("show"); 
+		.mouseleave(function() {
+			$("#control").removeClass("show");
 		});
 */
 });
